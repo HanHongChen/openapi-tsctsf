@@ -26,4 +26,3 @@ type PlmnId struct {
 	Mnc string `json:"mnc,omitempty" yaml:"mnc" bson:"mnc,omitempty"`
 }
 
-

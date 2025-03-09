@@ -25,4 +25,3 @@ type ServiceAreaCoverageInfo struct {
 	ServingNetwork *PlmnIdNid `json:"servingNetwork,omitempty" yaml:"servingNetwork" bson:"servingNetwork,omitempty"`
 }
 
-

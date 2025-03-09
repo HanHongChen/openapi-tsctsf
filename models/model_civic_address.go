@@ -56,4 +56,3 @@ type CivicAddress struct {
 	ProvidedBy string `json:"providedBy,omitempty" yaml:"providedBy" bson:"providedBy,omitempty"`
 }
 
-

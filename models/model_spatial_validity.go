@@ -24,4 +24,3 @@ type SpatialValidity struct {
 	PresenceInfoList map[string]PresenceInfo `json:"presenceInfoList,omitempty" yaml:"presenceInfoList" bson:"presenceInfoList,omitempty"`
 }
 
-

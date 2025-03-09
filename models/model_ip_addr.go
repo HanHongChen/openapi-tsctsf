@@ -26,4 +26,3 @@ type IpAddr struct {
 	Ipv6Prefix string `json:"ipv6Prefix,omitempty" yaml:"ipv6Prefix" bson:"ipv6Prefix,omitempty"`
 }
 
-

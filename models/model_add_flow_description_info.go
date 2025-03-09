@@ -27,4 +27,3 @@ type AddFlowDescriptionInfo struct {
 	FlowDir FlowDirection `json:"flowDir,omitempty" yaml:"flowDir" bson:"flowDir,omitempty"`
 }
 
-

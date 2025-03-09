@@ -26,4 +26,3 @@ type WebsockNotifConfig struct {
 	RequestWebsocketUri bool `json:"requestWebsocketUri,omitempty" yaml:"requestWebsocketUri" bson:"requestWebsocketUri,omitempty"`
 }
 
-

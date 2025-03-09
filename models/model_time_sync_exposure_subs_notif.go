@@ -25,4 +25,3 @@ type TimeSyncExposureSubsNotif struct {
 	EventNotifs []SubsEventNotification `json:"eventNotifs,omitempty" yaml:"eventNotifs" bson:"eventNotifs,omitempty"`
 }
 
-

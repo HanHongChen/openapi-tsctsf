@@ -35,4 +35,3 @@ type EthFlowDescription struct {
 	DestMacAddrEnd string `json:"destMacAddrEnd,omitempty" yaml:"destMacAddrEnd" bson:"destMacAddrEnd,omitempty"`
 }
 
-

@@ -39,4 +39,3 @@ type QosMonitoringReport struct {
 	DlConInfo int32 `json:"dlConInfo,omitempty" yaml:"dlConInfo" bson:"dlConInfo,omitempty"`
 }
 
-

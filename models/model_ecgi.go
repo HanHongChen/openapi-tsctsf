@@ -27,4 +27,3 @@ type Ecgi struct {
 	Nid string `json:"nid,omitempty" yaml:"nid" bson:"nid,omitempty"`
 }
 
-

@@ -27,4 +27,3 @@ type RedirectResponse struct {
 	TargetSepp string `json:"targetSepp,omitempty" yaml:"targetSepp" bson:"targetSepp,omitempty"`
 }
 
-

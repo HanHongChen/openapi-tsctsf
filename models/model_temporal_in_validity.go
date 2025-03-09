@@ -27,4 +27,3 @@ type TemporalInValidity struct {
 	StopTime *time.Time `json:"stopTime,omitempty" yaml:"stopTime" bson:"stopTime,omitempty"`
 }
 
-

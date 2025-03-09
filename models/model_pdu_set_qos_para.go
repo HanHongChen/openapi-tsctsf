@@ -27,4 +27,3 @@ type PduSetQosPara struct {
 	PduSetHandlingInfo PduSetHandlingInfo `json:"pduSetHandlingInfo,omitempty" yaml:"pduSetHandlingInfo" bson:"pduSetHandlingInfo,omitempty"`
 }
 
-

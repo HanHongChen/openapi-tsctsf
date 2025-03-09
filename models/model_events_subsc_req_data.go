@@ -28,4 +28,3 @@ type EventsSubscReqData struct {
 	NotifCorreId string `json:"notifCorreId,omitempty" yaml:"notifCorreId" bson:"notifCorreId,omitempty"`
 }
 
-

@@ -27,4 +27,3 @@ type PointUncertaintyEllipse struct {
 	Confidence int32 `json:"confidence,omitempty" yaml:"confidence" bson:"confidence,omitempty"`
 }
 
-

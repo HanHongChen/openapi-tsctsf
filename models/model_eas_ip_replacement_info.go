@@ -24,4 +24,3 @@ type EasIpReplacementInfo struct {
 	Target *EasServerAddress `json:"target,omitempty" yaml:"target" bson:"target,omitempty"`
 }
 
-

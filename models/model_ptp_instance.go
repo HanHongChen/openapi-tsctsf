@@ -26,4 +26,3 @@ type PtpInstance struct {
 	PortConfigs []ConfigForPort `json:"portConfigs,omitempty" yaml:"portConfigs" bson:"portConfigs,omitempty"`
 }
 
-

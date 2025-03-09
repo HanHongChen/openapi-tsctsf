@@ -24,4 +24,3 @@ type GeoServiceArea struct {
 	CivicAddressList []CivicAddress `json:"civicAddressList,omitempty" yaml:"civicAddressList" bson:"civicAddressList,omitempty"`
 }
 
-

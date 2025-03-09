@@ -24,4 +24,3 @@ type QueryParameter struct {
 	Value string `json:"value,omitempty" yaml:"value" bson:"value,omitempty"`
 }
 
-

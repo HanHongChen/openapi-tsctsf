@@ -27,4 +27,3 @@ type PeriodicityRange struct {
 	PeriodicVals []int32 `json:"periodicVals,omitempty" yaml:"periodicVals" bson:"periodicVals,omitempty"`
 }
 
-

@@ -28,4 +28,3 @@ type RelativeCartesianLocation struct {
 	Z float32 `json:"z,omitempty" yaml:"z" bson:"z,omitempty"`
 }
 
-

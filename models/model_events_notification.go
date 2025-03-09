@@ -24,4 +24,3 @@ type EventsNotification struct {
 	Events []EventNotification `json:"events,omitempty" yaml:"events" bson:"events,omitempty"`
 }
 
-

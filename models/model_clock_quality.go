@@ -28,4 +28,3 @@ type ClockQuality struct {
 	ClockAccuracyValue int32 `json:"clockAccuracyValue,omitempty" yaml:"clockAccuracyValue" bson:"clockAccuracyValue,omitempty"`
 }
 
-

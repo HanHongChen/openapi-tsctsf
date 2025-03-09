@@ -32,4 +32,3 @@ type ConfigForPort struct {
 	LogAnnouInterInd bool `json:"logAnnouInterInd,omitempty" yaml:"logAnnouInterInd" bson:"logAnnouInterInd,omitempty"`
 }
 
-

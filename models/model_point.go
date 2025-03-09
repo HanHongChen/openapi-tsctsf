@@ -24,4 +24,3 @@ type Point struct {
 	Point *GeographicalCoordinates `json:"point,omitempty" yaml:"point" bson:"point,omitempty"`
 }
 
-

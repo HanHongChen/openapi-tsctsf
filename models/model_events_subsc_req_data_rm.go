@@ -14,11 +14,6 @@ package models
 
 import (
 	
-	"encoding/json"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/bsontype"
-	
-    "bitbucket.org/free5GC/openapi/custom"
 )
 
 
@@ -29,77 +24,7 @@ type EventsSubscReqDataRm struct {
 	// String providing an URI formatted according to RFC 3986.
 	NotifUri string `json:"notifUri,omitempty" yaml:"notifUri" bson:"notifUri,omitempty"`
 	QosMon *QosMonitoringInformationRm `json:"qosMon,omitempty" yaml:"qosMon" bson:"qosMon,omitempty"`
-	UsgThres *custom.Nullable[UsageThresholdRm] `json:"usgThres,omitempty" yaml:"usgThres" bson:"usgThres,omitempty"`
+	UsgThres *UsageThresholdRm `json:"usgThres,omitempty" yaml:"usgThres" bson:"usgThres,omitempty"`
 	NotifCorreId string `json:"notifCorreId,omitempty" yaml:"notifCorreId" bson:"notifCorreId,omitempty"`
-}
-var _ json.Unmarshaler = (*EventsSubscReqDataRm)(nil)
-
-func (m *EventsSubscReqDataRm) UnmarshalJSON(data []byte) error {
-	var err error
-	var b _EventsSubscReqDataRmJSONUnmarshalBuffer
-	if err = json.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	m.Events = b.Events
-	m.NotifUri = b.NotifUri
-	m.QosMon = b.QosMon
-	if len(b.UsgThres) != 0 {
-		m.UsgThres = custom.NewNullableNull[UsageThresholdRm]()
-		err = m.UsgThres.UnmarshalJSON(b.UsgThres)
-		if err != nil {
-			return err
-		}
-	}
-	m.NotifCorreId = b.NotifCorreId
-
-	return nil
-}
-
-// _EventsSubscReqDataRmJSONUnmarshaler is used to unmarshal the null properties into the EventsSubscReqDataRm struct
-type _EventsSubscReqDataRmJSONUnmarshalBuffer struct {
-	Events []TscEvent `json:"events,omitempty"`
-	NotifUri string `json:"notifUri,omitempty"`
-	QosMon *QosMonitoringInformationRm `json:"qosMon,omitempty"`
-	UsgThres json.RawMessage `json:"usgThres,omitempty"`
-	NotifCorreId string `json:"notifCorreId,omitempty"`
-}
-
-var _ bson.Unmarshaler = (*EventsSubscReqDataRm)(nil)
-
-func (m *EventsSubscReqDataRm) UnmarshalBSON(data []byte) error {
-	var err error
-	var b _EventsSubscReqDataRmBSONUnmarshalBuffer
-	if err = bson.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	m.Events = b.Events
-	m.NotifUri = b.NotifUri
-	m.QosMon = b.QosMon
-	if b.UsgThres != nil {
-		var bt bsontype.Type
-		switch len(b.UsgThres) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeEmbeddedDocument
-		}
-		m.UsgThres = custom.NewNullableNull[UsageThresholdRm]()
-		err = m.UsgThres.UnmarshalBSONValue(bt, b.UsgThres)
-		if err != nil {
-			return err
-		}
-	}
-	m.NotifCorreId = b.NotifCorreId
-
-	return nil
-}
-
-// _EventsSubscReqDataRmBSONUnmarshalBuffer is used to unmarshal the null properties into the EventsSubscReqDataRm struct
-type _EventsSubscReqDataRmBSONUnmarshalBuffer struct {
-	Events []TscEvent `bson:"events,omitempty"`
-	NotifUri string `bson:"notifUri,omitempty"`
-	QosMon *QosMonitoringInformationRm `bson:"qosMon,omitempty"`
-	UsgThres bson.Raw `bson:"usgThres,omitempty"`
-	NotifCorreId string `bson:"notifCorreId,omitempty"`
 }
 

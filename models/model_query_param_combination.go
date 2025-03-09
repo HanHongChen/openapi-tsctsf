@@ -23,4 +23,3 @@ type QueryParamCombination struct {
 	QueryParams []QueryParameter `json:"queryParams,omitempty" yaml:"queryParams" bson:"queryParams,omitempty"`
 }
 
-

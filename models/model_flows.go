@@ -25,4 +25,3 @@ type Flows struct {
 	MedCompN int32 `json:"medCompN,omitempty" yaml:"medCompN" bson:"medCompN,omitempty"`
 }
 
-

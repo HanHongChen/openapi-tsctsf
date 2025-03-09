@@ -25,4 +25,3 @@ type ClockQualityAcceptanceCriterion struct {
 	ParentTimeSource []TimeSource `json:"parentTimeSource,omitempty" yaml:"parentTimeSource" bson:"parentTimeSource,omitempty"`
 }
 
-

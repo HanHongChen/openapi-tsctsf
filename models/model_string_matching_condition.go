@@ -24,4 +24,3 @@ type StringMatchingCondition struct {
 	MatchingOperator MatchingOperator `json:"matchingOperator,omitempty" yaml:"matchingOperator" bson:"matchingOperator,omitempty"`
 }
 
-

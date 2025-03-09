@@ -25,4 +25,3 @@ type ProtocolDescription struct {
 	RtpPayloadInfoList []RtpPayloadInfo `json:"rtpPayloadInfoList,omitempty" yaml:"rtpPayloadInfoList" bson:"rtpPayloadInfoList,omitempty"`
 }
 
-

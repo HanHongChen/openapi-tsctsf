@@ -23,4 +23,3 @@ type GadShape struct {
 	Shape SupportedGadShapes `json:"shape,omitempty" yaml:"shape" bson:"shape,omitempty"`
 }
 
-

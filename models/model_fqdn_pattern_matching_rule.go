@@ -24,4 +24,3 @@ type FqdnPatternMatchingRule struct {
 	StringMatchingRule *StringMatchingRule `json:"stringMatchingRule,omitempty" yaml:"stringMatchingRule" bson:"stringMatchingRule,omitempty"`
 }
 
-

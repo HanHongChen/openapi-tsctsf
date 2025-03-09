@@ -46,4 +46,3 @@ type QosMonitoringInformation struct {
 	ConsDataRateThrUl string `json:"consDataRateThrUl,omitempty" yaml:"consDataRateThrUl" bson:"consDataRateThrUl,omitempty"`
 }
 
-

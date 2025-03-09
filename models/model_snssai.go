@@ -26,4 +26,3 @@ type Snssai struct {
 	Sd string `json:"sd,omitempty" yaml:"sd" bson:"sd,omitempty"`
 }
 
-

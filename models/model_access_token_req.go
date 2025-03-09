@@ -48,4 +48,3 @@ type AccessTokenReq struct {
 	SourceNfInstanceId string `json:"sourceNfInstanceId,omitempty" yaml:"sourceNfInstanceId" bson:"sourceNfInstanceId,omitempty"`
 }
 
-

@@ -14,11 +14,6 @@ package models
 
 import (
 	
-	"encoding/json"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/bsontype"
-	
-    "bitbucket.org/free5GC/openapi/custom"
 )
 
 
@@ -45,113 +40,7 @@ type TscAppSessionContextUpdateData struct {
 	// Contains an identity of a sponsor.
 	SponId string `json:"sponId,omitempty" yaml:"sponId" bson:"sponId,omitempty"`
 	SponStatus SponsoringStatus `json:"sponStatus,omitempty" yaml:"sponStatus" bson:"sponStatus,omitempty"`
-	EvSubsc *custom.Nullable[EventsSubscReqDataRm] `json:"evSubsc,omitempty" yaml:"evSubsc" bson:"evSubsc,omitempty"`
+	EvSubsc *EventsSubscReqDataRm `json:"evSubsc,omitempty" yaml:"evSubsc" bson:"evSubsc,omitempty"`
 	TempInValidity *TemporalInValidity `json:"tempInValidity,omitempty" yaml:"tempInValidity" bson:"tempInValidity,omitempty"`
-}
-var _ json.Unmarshaler = (*TscAppSessionContextUpdateData)(nil)
-
-func (m *TscAppSessionContextUpdateData) UnmarshalJSON(data []byte) error {
-	var err error
-	var b _TscAppSessionContextUpdateDataJSONUnmarshalBuffer
-	if err = json.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	m.NotifUri = b.NotifUri
-	m.AppId = b.AppId
-	m.EthFlowInfo = b.EthFlowInfo
-	m.EnEthFlowInfo = b.EnEthFlowInfo
-	m.FlowInfo = b.FlowInfo
-	m.TscQosReq = b.TscQosReq
-	m.QosReference = b.QosReference
-	m.AltQosReferences = b.AltQosReferences
-	m.AltQosReqs = b.AltQosReqs
-	m.AspId = b.AspId
-	m.SponId = b.SponId
-	m.SponStatus = b.SponStatus
-	if len(b.EvSubsc) != 0 {
-		m.EvSubsc = custom.NewNullableNull[EventsSubscReqDataRm]()
-		err = m.EvSubsc.UnmarshalJSON(b.EvSubsc)
-		if err != nil {
-			return err
-		}
-	}
-	m.TempInValidity = b.TempInValidity
-
-	return nil
-}
-
-// _TscAppSessionContextUpdateDataJSONUnmarshaler is used to unmarshal the null properties into the TscAppSessionContextUpdateData struct
-type _TscAppSessionContextUpdateDataJSONUnmarshalBuffer struct {
-	NotifUri string `json:"notifUri,omitempty"`
-	AppId string `json:"appId,omitempty"`
-	EthFlowInfo []EthFlowDescription `json:"ethFlowInfo,omitempty"`
-	EnEthFlowInfo []EthFlowInfo `json:"enEthFlowInfo,omitempty"`
-	FlowInfo []FlowInfo `json:"flowInfo,omitempty"`
-	TscQosReq *TscQosRequirementRm `json:"tscQosReq,omitempty"`
-	QosReference string `json:"qosReference,omitempty"`
-	AltQosReferences []string `json:"altQosReferences,omitempty"`
-	AltQosReqs []AlternativeServiceRequirementsData `json:"altQosReqs,omitempty"`
-	AspId string `json:"aspId,omitempty"`
-	SponId string `json:"sponId,omitempty"`
-	SponStatus SponsoringStatus `json:"sponStatus,omitempty"`
-	EvSubsc json.RawMessage `json:"evSubsc,omitempty"`
-	TempInValidity *TemporalInValidity `json:"tempInValidity,omitempty"`
-}
-
-var _ bson.Unmarshaler = (*TscAppSessionContextUpdateData)(nil)
-
-func (m *TscAppSessionContextUpdateData) UnmarshalBSON(data []byte) error {
-	var err error
-	var b _TscAppSessionContextUpdateDataBSONUnmarshalBuffer
-	if err = bson.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	m.NotifUri = b.NotifUri
-	m.AppId = b.AppId
-	m.EthFlowInfo = b.EthFlowInfo
-	m.EnEthFlowInfo = b.EnEthFlowInfo
-	m.FlowInfo = b.FlowInfo
-	m.TscQosReq = b.TscQosReq
-	m.QosReference = b.QosReference
-	m.AltQosReferences = b.AltQosReferences
-	m.AltQosReqs = b.AltQosReqs
-	m.AspId = b.AspId
-	m.SponId = b.SponId
-	m.SponStatus = b.SponStatus
-	if b.EvSubsc != nil {
-		var bt bsontype.Type
-		switch len(b.EvSubsc) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeEmbeddedDocument
-		}
-		m.EvSubsc = custom.NewNullableNull[EventsSubscReqDataRm]()
-		err = m.EvSubsc.UnmarshalBSONValue(bt, b.EvSubsc)
-		if err != nil {
-			return err
-		}
-	}
-	m.TempInValidity = b.TempInValidity
-
-	return nil
-}
-
-// _TscAppSessionContextUpdateDataBSONUnmarshalBuffer is used to unmarshal the null properties into the TscAppSessionContextUpdateData struct
-type _TscAppSessionContextUpdateDataBSONUnmarshalBuffer struct {
-	NotifUri string `bson:"notifUri,omitempty"`
-	AppId string `bson:"appId,omitempty"`
-	EthFlowInfo []EthFlowDescription `bson:"ethFlowInfo,omitempty"`
-	EnEthFlowInfo []EthFlowInfo `bson:"enEthFlowInfo,omitempty"`
-	FlowInfo []FlowInfo `bson:"flowInfo,omitempty"`
-	TscQosReq *TscQosRequirementRm `bson:"tscQosReq,omitempty"`
-	QosReference string `bson:"qosReference,omitempty"`
-	AltQosReferences []string `bson:"altQosReferences,omitempty"`
-	AltQosReqs []AlternativeServiceRequirementsData `bson:"altQosReqs,omitempty"`
-	AspId string `bson:"aspId,omitempty"`
-	SponId string `bson:"sponId,omitempty"`
-	SponStatus SponsoringStatus `bson:"sponStatus,omitempty"`
-	EvSubsc bson.Raw `bson:"evSubsc,omitempty"`
-	TempInValidity *TemporalInValidity `bson:"tempInValidity,omitempty"`
 }
 

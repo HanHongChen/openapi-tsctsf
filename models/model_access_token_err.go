@@ -25,4 +25,3 @@ type AccessTokenErr struct {
 	ErrorUri string `json:"error_uri,omitempty" yaml:"error_uri" bson:"error_uri,omitempty"`
 }
 
-

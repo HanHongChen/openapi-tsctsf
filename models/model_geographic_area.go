@@ -45,4 +45,3 @@ type GeographicArea struct {
 	IncludedAngle int32 `json:"includedAngle,omitempty" yaml:"includedAngle" bson:"includedAngle,omitempty"`
 }
 
-

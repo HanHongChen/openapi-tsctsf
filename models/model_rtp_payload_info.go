@@ -24,4 +24,3 @@ type RtpPayloadInfo struct {
 	RtpPayloadFormat RtpPayloadFormat `json:"rtpPayloadFormat,omitempty" yaml:"rtpPayloadFormat" bson:"rtpPayloadFormat,omitempty"`
 }
 
-

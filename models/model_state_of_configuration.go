@@ -27,4 +27,3 @@ type StateOfConfiguration struct {
 	StateOfDstts []StateOfDstt `json:"stateOfDstts,omitempty" yaml:"stateOfDstts" bson:"stateOfDstts,omitempty"`
 }
 
-

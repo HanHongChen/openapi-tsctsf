@@ -28,4 +28,3 @@ type FlowInfo struct {
 	TosTC string `json:"tosTC,omitempty" yaml:"tosTC" bson:"tosTC,omitempty"`
 }
 
-

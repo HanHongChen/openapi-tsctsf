@@ -30,4 +30,3 @@ type TsnQosContainer struct {
 	TscPrioLevel int32 `json:"tscPrioLevel,omitempty" yaml:"tscPrioLevel" bson:"tscPrioLevel,omitempty"`
 }
 
-

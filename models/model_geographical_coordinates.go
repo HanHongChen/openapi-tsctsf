@@ -24,4 +24,3 @@ type GeographicalCoordinates struct {
 	Lat float64 `json:"lat,omitempty" yaml:"lat" bson:"lat,omitempty"`
 }
 
-

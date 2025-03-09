@@ -14,11 +14,6 @@ package models
 
 import (
 	
-	"encoding/json"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/bsontype"
-	
-    "bitbucket.org/free5GC/openapi/custom"
 )
 
 
@@ -27,89 +22,8 @@ import (
 type RouteToLocation struct {
 	// DNAI (Data network access identifier), see clause 5.6.7 of 3GPP TS 23.501.
 	Dnai string `json:"dnai,omitempty" yaml:"dnai" bson:"dnai,omitempty"`
-	RouteInfo *custom.Nullable[RouteInformation] `json:"routeInfo,omitempty" yaml:"routeInfo" bson:"routeInfo,omitempty"`
+	RouteInfo *RouteInformation `json:"routeInfo,omitempty" yaml:"routeInfo" bson:"routeInfo,omitempty"`
 	// Identifies the routing profile Id.
-	RouteProfId *custom.Nullable[string] `json:"routeProfId,omitempty" yaml:"routeProfId" bson:"routeProfId,omitempty"`
-}
-var _ json.Unmarshaler = (*RouteToLocation)(nil)
-
-func (m *RouteToLocation) UnmarshalJSON(data []byte) error {
-	var err error
-	var b _RouteToLocationJSONUnmarshalBuffer
-	if err = json.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	m.Dnai = b.Dnai
-	if len(b.RouteInfo) != 0 {
-		m.RouteInfo = custom.NewNullableNull[RouteInformation]()
-		err = m.RouteInfo.UnmarshalJSON(b.RouteInfo)
-		if err != nil {
-			return err
-		}
-	}
-	if len(b.RouteProfId) != 0 {
-		m.RouteProfId = custom.NewNullableNull[string]()
-		err = m.RouteProfId.UnmarshalJSON(b.RouteProfId)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// _RouteToLocationJSONUnmarshaler is used to unmarshal the null properties into the RouteToLocation struct
-type _RouteToLocationJSONUnmarshalBuffer struct {
-	Dnai string `json:"dnai,omitempty"`
-	RouteInfo json.RawMessage `json:"routeInfo,omitempty"`
-	RouteProfId json.RawMessage `json:"routeProfId,omitempty"`
-}
-
-var _ bson.Unmarshaler = (*RouteToLocation)(nil)
-
-func (m *RouteToLocation) UnmarshalBSON(data []byte) error {
-	var err error
-	var b _RouteToLocationBSONUnmarshalBuffer
-	if err = bson.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	m.Dnai = b.Dnai
-	if b.RouteInfo != nil {
-		var bt bsontype.Type
-		switch len(b.RouteInfo) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeEmbeddedDocument
-		}
-		m.RouteInfo = custom.NewNullableNull[RouteInformation]()
-		err = m.RouteInfo.UnmarshalBSONValue(bt, b.RouteInfo)
-		if err != nil {
-			return err
-		}
-	}
-	if b.RouteProfId != nil {
-		var bt bsontype.Type
-		switch len(b.RouteProfId) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeString
-		}
-		m.RouteProfId = custom.NewNullableNull[string]()
-		err = m.RouteProfId.UnmarshalBSONValue(bt, b.RouteProfId)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// _RouteToLocationBSONUnmarshalBuffer is used to unmarshal the null properties into the RouteToLocation struct
-type _RouteToLocationBSONUnmarshalBuffer struct {
-	Dnai string `bson:"dnai,omitempty"`
-	RouteInfo bson.Raw `bson:"routeInfo,omitempty"`
-	RouteProfId bson.Raw `bson:"routeProfId,omitempty"`
+	RouteProfId string `json:"routeProfId,omitempty" yaml:"routeProfId" bson:"routeProfId,omitempty"`
 }
 

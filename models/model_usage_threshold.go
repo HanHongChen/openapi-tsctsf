@@ -30,4 +30,3 @@ type UsageThreshold struct {
 	UplinkVolume int64 `json:"uplinkVolume,omitempty" yaml:"uplinkVolume" bson:"uplinkVolume,omitempty"`
 }
 
-

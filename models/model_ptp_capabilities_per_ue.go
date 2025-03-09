@@ -27,4 +27,3 @@ type PtpCapabilitiesPerUe struct {
 	PtpCaps []EventFilter `json:"ptpCaps,omitempty" yaml:"ptpCaps" bson:"ptpCaps,omitempty"`
 }
 
-

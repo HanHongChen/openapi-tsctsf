@@ -27,4 +27,3 @@ type RouteInformation struct {
 	PortNumber int32 `json:"portNumber,omitempty" yaml:"portNumber" bson:"portNumber,omitempty"`
 }
 
-

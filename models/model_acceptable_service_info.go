@@ -28,4 +28,3 @@ type AcceptableServiceInfo struct {
 	MarBwDl string `json:"marBwDl,omitempty" yaml:"marBwDl" bson:"marBwDl,omitempty"`
 }
 
-

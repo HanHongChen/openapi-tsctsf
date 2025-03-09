@@ -29,4 +29,3 @@ type AfEventSubscription struct {
 	QosMonParamType QosMonitoringParamType `json:"qosMonParamType,omitempty" yaml:"qosMonParamType" bson:"qosMonParamType,omitempty"`
 }
 
-

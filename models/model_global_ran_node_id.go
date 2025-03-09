@@ -36,4 +36,3 @@ type GlobalRanNodeId struct {
 	ENbId string `json:"eNbId,omitempty" yaml:"eNbId" bson:"eNbId,omitempty"`
 }
 
-

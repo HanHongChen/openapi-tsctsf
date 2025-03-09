@@ -30,4 +30,3 @@ type TimeSyncCapability struct {
 	PtpCapForGpsis map[string]PtpCapabilitiesPerUe `json:"ptpCapForGpsis,omitempty" yaml:"ptpCapForGpsis" bson:"ptpCapForGpsis,omitempty"`
 }
 
-

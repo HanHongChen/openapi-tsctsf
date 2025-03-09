@@ -14,11 +14,6 @@ package models
 
 import (
 	
-	"encoding/json"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/bsontype"
-	
-    "bitbucket.org/free5GC/openapi/custom"
 )
 
 
@@ -26,135 +21,12 @@ import (
 // Represents the same as the UsageThreshold data type but with the nullable:true property. 
 type UsageThresholdRm struct {
 	// Unsigned integer identifying a period of time in units of seconds with \"nullable=true\" property. 
-	Duration *custom.Nullable[int32] `json:"duration,omitempty" yaml:"duration" bson:"duration,omitempty"`
+	Duration int32 `json:"duration,omitempty" yaml:"duration" bson:"duration,omitempty"`
 	// Unsigned integer identifying a volume in units of bytes with \"nullable=true\" property. 
-	TotalVolume *custom.Nullable[int64] `json:"totalVolume,omitempty" yaml:"totalVolume" bson:"totalVolume,omitempty"`
+	TotalVolume int64 `json:"totalVolume,omitempty" yaml:"totalVolume" bson:"totalVolume,omitempty"`
 	// Unsigned integer identifying a volume in units of bytes with \"nullable=true\" property. 
-	DownlinkVolume *custom.Nullable[int64] `json:"downlinkVolume,omitempty" yaml:"downlinkVolume" bson:"downlinkVolume,omitempty"`
+	DownlinkVolume int64 `json:"downlinkVolume,omitempty" yaml:"downlinkVolume" bson:"downlinkVolume,omitempty"`
 	// Unsigned integer identifying a volume in units of bytes with \"nullable=true\" property. 
-	UplinkVolume *custom.Nullable[int64] `json:"uplinkVolume,omitempty" yaml:"uplinkVolume" bson:"uplinkVolume,omitempty"`
-}
-var _ json.Unmarshaler = (*UsageThresholdRm)(nil)
-
-func (m *UsageThresholdRm) UnmarshalJSON(data []byte) error {
-	var err error
-	var b _UsageThresholdRmJSONUnmarshalBuffer
-	if err = json.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	if len(b.Duration) != 0 {
-		m.Duration = custom.NewNullableNull[int32]()
-		err = m.Duration.UnmarshalJSON(b.Duration)
-		if err != nil {
-			return err
-		}
-	}
-	if len(b.TotalVolume) != 0 {
-		m.TotalVolume = custom.NewNullableNull[int64]()
-		err = m.TotalVolume.UnmarshalJSON(b.TotalVolume)
-		if err != nil {
-			return err
-		}
-	}
-	if len(b.DownlinkVolume) != 0 {
-		m.DownlinkVolume = custom.NewNullableNull[int64]()
-		err = m.DownlinkVolume.UnmarshalJSON(b.DownlinkVolume)
-		if err != nil {
-			return err
-		}
-	}
-	if len(b.UplinkVolume) != 0 {
-		m.UplinkVolume = custom.NewNullableNull[int64]()
-		err = m.UplinkVolume.UnmarshalJSON(b.UplinkVolume)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// _UsageThresholdRmJSONUnmarshaler is used to unmarshal the null properties into the UsageThresholdRm struct
-type _UsageThresholdRmJSONUnmarshalBuffer struct {
-	Duration json.RawMessage `json:"duration,omitempty"`
-	TotalVolume json.RawMessage `json:"totalVolume,omitempty"`
-	DownlinkVolume json.RawMessage `json:"downlinkVolume,omitempty"`
-	UplinkVolume json.RawMessage `json:"uplinkVolume,omitempty"`
-}
-
-var _ bson.Unmarshaler = (*UsageThresholdRm)(nil)
-
-func (m *UsageThresholdRm) UnmarshalBSON(data []byte) error {
-	var err error
-	var b _UsageThresholdRmBSONUnmarshalBuffer
-	if err = bson.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	if b.Duration != nil {
-		var bt bsontype.Type
-		switch len(b.Duration) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeInt32
-		}
-		m.Duration = custom.NewNullableNull[int32]()
-		err = m.Duration.UnmarshalBSONValue(bt, b.Duration)
-		if err != nil {
-			return err
-		}
-	}
-	if b.TotalVolume != nil {
-		var bt bsontype.Type
-		switch len(b.TotalVolume) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeInt64
-		}
-		m.TotalVolume = custom.NewNullableNull[int64]()
-		err = m.TotalVolume.UnmarshalBSONValue(bt, b.TotalVolume)
-		if err != nil {
-			return err
-		}
-	}
-	if b.DownlinkVolume != nil {
-		var bt bsontype.Type
-		switch len(b.DownlinkVolume) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeInt64
-		}
-		m.DownlinkVolume = custom.NewNullableNull[int64]()
-		err = m.DownlinkVolume.UnmarshalBSONValue(bt, b.DownlinkVolume)
-		if err != nil {
-			return err
-		}
-	}
-	if b.UplinkVolume != nil {
-		var bt bsontype.Type
-		switch len(b.UplinkVolume) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeInt64
-		}
-		m.UplinkVolume = custom.NewNullableNull[int64]()
-		err = m.UplinkVolume.UnmarshalBSONValue(bt, b.UplinkVolume)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// _UsageThresholdRmBSONUnmarshalBuffer is used to unmarshal the null properties into the UsageThresholdRm struct
-type _UsageThresholdRmBSONUnmarshalBuffer struct {
-	Duration bson.Raw `bson:"duration,omitempty"`
-	TotalVolume bson.Raw `bson:"totalVolume,omitempty"`
-	DownlinkVolume bson.Raw `bson:"downlinkVolume,omitempty"`
-	UplinkVolume bson.Raw `bson:"uplinkVolume,omitempty"`
+	UplinkVolume int64 `json:"uplinkVolume,omitempty" yaml:"uplinkVolume" bson:"uplinkVolume,omitempty"`
 }
 

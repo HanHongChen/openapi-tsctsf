@@ -26,4 +26,3 @@ type InvalidParam struct {
 	Reason string `json:"reason,omitempty" yaml:"reason" bson:"reason,omitempty"`
 }
 
-

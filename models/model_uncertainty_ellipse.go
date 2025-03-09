@@ -28,4 +28,3 @@ type UncertaintyEllipse struct {
 	OrientationMajor int32 `json:"orientationMajor,omitempty" yaml:"orientationMajor" bson:"orientationMajor,omitempty"`
 }
 
-

@@ -26,4 +26,3 @@ type EthFlowInfo struct {
 	EthFlowDescriptions []EthFlowDescription `json:"ethFlowDescriptions,omitempty" yaml:"ethFlowDescriptions" bson:"ethFlowDescriptions,omitempty"`
 }
 
-

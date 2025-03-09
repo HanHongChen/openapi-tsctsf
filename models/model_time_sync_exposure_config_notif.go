@@ -25,4 +25,3 @@ type TimeSyncExposureConfigNotif struct {
 	StateOfConfig *StateOfConfiguration `json:"stateOfConfig,omitempty" yaml:"stateOfConfig" bson:"stateOfConfig,omitempty"`
 }
 
-

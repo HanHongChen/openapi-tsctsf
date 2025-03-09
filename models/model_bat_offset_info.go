@@ -28,4 +28,3 @@ type BatOffsetInfo struct {
 	Flows []Flows `json:"flows,omitempty" yaml:"flows" bson:"flows,omitempty"`
 }
 
-

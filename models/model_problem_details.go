@@ -41,4 +41,3 @@ type ProblemDetails struct {
 	NoProfileMatchInfo *NoProfileMatchInfo `json:"noProfileMatchInfo,omitempty" yaml:"noProfileMatchInfo" bson:"noProfileMatchInfo,omitempty"`
 }
 
-

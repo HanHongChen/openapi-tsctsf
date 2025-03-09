@@ -14,11 +14,6 @@ package models
 
 import (
 	
-	"encoding/json"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/bsontype"
-	
-    "bitbucket.org/free5GC/openapi/custom"
 )
 
 
@@ -26,10 +21,10 @@ import (
 // Describes AF requirements on routing traffic.
 type AfRoutingRequirement struct {
 	AppReloc bool `json:"appReloc,omitempty" yaml:"appReloc" bson:"appReloc,omitempty"`
-	RouteToLocs []custom.Nullable[RouteToLocation] `json:"routeToLocs,omitempty" yaml:"routeToLocs" bson:"routeToLocs,omitempty"`
+	RouteToLocs []RouteToLocation `json:"routeToLocs,omitempty" yaml:"routeToLocs" bson:"routeToLocs,omitempty"`
 	SpVal *SpatialValidity `json:"spVal,omitempty" yaml:"spVal" bson:"spVal,omitempty"`
 	TempVals []TemporalValidity `json:"tempVals,omitempty" yaml:"tempVals" bson:"tempVals,omitempty"`
-	UpPathChgSub *custom.Nullable[UpPathChgEvent] `json:"upPathChgSub,omitempty" yaml:"upPathChgSub" bson:"upPathChgSub,omitempty"`
+	UpPathChgSub *UpPathChgEvent `json:"upPathChgSub,omitempty" yaml:"upPathChgSub" bson:"upPathChgSub,omitempty"`
 	AddrPreserInd bool `json:"addrPreserInd,omitempty" yaml:"addrPreserInd" bson:"addrPreserInd,omitempty"`
 	// Indicates whether simultaneous connectivity should be temporarily maintained for the source and target PSA. 
 	SimConnInd bool `json:"simConnInd,omitempty" yaml:"simConnInd" bson:"simConnInd,omitempty"`
@@ -41,123 +36,6 @@ type AfRoutingRequirement struct {
 	EasRedisInd bool `json:"easRedisInd,omitempty" yaml:"easRedisInd" bson:"easRedisInd,omitempty"`
 	// Unsigned Integer, i.e. only value 0 and integers above 0 are permissible.
 	MaxAllowedUpLat int32 `json:"maxAllowedUpLat,omitempty" yaml:"maxAllowedUpLat" bson:"maxAllowedUpLat,omitempty"`
-	TfcCorreInfo *custom.Nullable[TrafficCorrelationInfo] `json:"tfcCorreInfo,omitempty" yaml:"tfcCorreInfo" bson:"tfcCorreInfo,omitempty"`
-}
-var _ json.Unmarshaler = (*AfRoutingRequirement)(nil)
-
-func (m *AfRoutingRequirement) UnmarshalJSON(data []byte) error {
-	var err error
-	var b _AfRoutingRequirementJSONUnmarshalBuffer
-	if err = json.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	m.AppReloc = b.AppReloc
-	m.RouteToLocs = b.RouteToLocs
-	m.SpVal = b.SpVal
-	m.TempVals = b.TempVals
-	if len(b.UpPathChgSub) != 0 {
-		m.UpPathChgSub = custom.NewNullableNull[UpPathChgEvent]()
-		err = m.UpPathChgSub.UnmarshalJSON(b.UpPathChgSub)
-		if err != nil {
-			return err
-		}
-	}
-	m.AddrPreserInd = b.AddrPreserInd
-	m.SimConnInd = b.SimConnInd
-	m.SimConnTerm = b.SimConnTerm
-	m.EasIpReplaceInfos = b.EasIpReplaceInfos
-	m.EasRedisInd = b.EasRedisInd
-	m.MaxAllowedUpLat = b.MaxAllowedUpLat
-	if len(b.TfcCorreInfo) != 0 {
-		m.TfcCorreInfo = custom.NewNullableNull[TrafficCorrelationInfo]()
-		err = m.TfcCorreInfo.UnmarshalJSON(b.TfcCorreInfo)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// _AfRoutingRequirementJSONUnmarshaler is used to unmarshal the null properties into the AfRoutingRequirement struct
-type _AfRoutingRequirementJSONUnmarshalBuffer struct {
-	AppReloc bool `json:"appReloc,omitempty"`
-	RouteToLocs []custom.Nullable[RouteToLocation] `json:"routeToLocs,omitempty"`
-	SpVal *SpatialValidity `json:"spVal,omitempty"`
-	TempVals []TemporalValidity `json:"tempVals,omitempty"`
-	UpPathChgSub json.RawMessage `json:"upPathChgSub,omitempty"`
-	AddrPreserInd bool `json:"addrPreserInd,omitempty"`
-	SimConnInd bool `json:"simConnInd,omitempty"`
-	SimConnTerm int32 `json:"simConnTerm,omitempty"`
-	EasIpReplaceInfos []EasIpReplacementInfo `json:"easIpReplaceInfos,omitempty"`
-	EasRedisInd bool `json:"easRedisInd,omitempty"`
-	MaxAllowedUpLat int32 `json:"maxAllowedUpLat,omitempty"`
-	TfcCorreInfo json.RawMessage `json:"tfcCorreInfo,omitempty"`
-}
-
-var _ bson.Unmarshaler = (*AfRoutingRequirement)(nil)
-
-func (m *AfRoutingRequirement) UnmarshalBSON(data []byte) error {
-	var err error
-	var b _AfRoutingRequirementBSONUnmarshalBuffer
-	if err = bson.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	m.AppReloc = b.AppReloc
-	m.RouteToLocs = b.RouteToLocs
-	m.SpVal = b.SpVal
-	m.TempVals = b.TempVals
-	if b.UpPathChgSub != nil {
-		var bt bsontype.Type
-		switch len(b.UpPathChgSub) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeEmbeddedDocument
-		}
-		m.UpPathChgSub = custom.NewNullableNull[UpPathChgEvent]()
-		err = m.UpPathChgSub.UnmarshalBSONValue(bt, b.UpPathChgSub)
-		if err != nil {
-			return err
-		}
-	}
-	m.AddrPreserInd = b.AddrPreserInd
-	m.SimConnInd = b.SimConnInd
-	m.SimConnTerm = b.SimConnTerm
-	m.EasIpReplaceInfos = b.EasIpReplaceInfos
-	m.EasRedisInd = b.EasRedisInd
-	m.MaxAllowedUpLat = b.MaxAllowedUpLat
-	if b.TfcCorreInfo != nil {
-		var bt bsontype.Type
-		switch len(b.TfcCorreInfo) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeEmbeddedDocument
-		}
-		m.TfcCorreInfo = custom.NewNullableNull[TrafficCorrelationInfo]()
-		err = m.TfcCorreInfo.UnmarshalBSONValue(bt, b.TfcCorreInfo)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// _AfRoutingRequirementBSONUnmarshalBuffer is used to unmarshal the null properties into the AfRoutingRequirement struct
-type _AfRoutingRequirementBSONUnmarshalBuffer struct {
-	AppReloc bool `bson:"appReloc,omitempty"`
-	RouteToLocs []custom.Nullable[RouteToLocation] `bson:"routeToLocs,omitempty"`
-	SpVal *SpatialValidity `bson:"spVal,omitempty"`
-	TempVals []TemporalValidity `bson:"tempVals,omitempty"`
-	UpPathChgSub bson.Raw `bson:"upPathChgSub,omitempty"`
-	AddrPreserInd bool `bson:"addrPreserInd,omitempty"`
-	SimConnInd bool `bson:"simConnInd,omitempty"`
-	SimConnTerm int32 `bson:"simConnTerm,omitempty"`
-	EasIpReplaceInfos []EasIpReplacementInfo `bson:"easIpReplaceInfos,omitempty"`
-	EasRedisInd bool `bson:"easRedisInd,omitempty"`
-	MaxAllowedUpLat int32 `bson:"maxAllowedUpLat,omitempty"`
-	TfcCorreInfo bson.Raw `bson:"tfcCorreInfo,omitempty"`
+	TfcCorreInfo *TrafficCorrelationInfo `json:"tfcCorreInfo,omitempty" yaml:"tfcCorreInfo" bson:"tfcCorreInfo,omitempty"`
 }
 

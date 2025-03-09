@@ -26,4 +26,3 @@ type PointUncertaintyCircle struct {
 	Uncertainty float32 `json:"uncertainty,omitempty" yaml:"uncertainty" bson:"uncertainty,omitempty"`
 }
 
-

@@ -24,4 +24,3 @@ type AdditionInfoTsctsfQosTscac struct {
 	BatOffsetInfo *BatOffsetInfo `json:"batOffsetInfo,omitempty" yaml:"batOffsetInfo" bson:"batOffsetInfo,omitempty"`
 }
 
-

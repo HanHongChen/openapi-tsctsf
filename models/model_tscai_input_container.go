@@ -33,4 +33,3 @@ type TscaiInputContainer struct {
 	PeriodicityRange *PeriodicityRange `json:"periodicityRange,omitempty" yaml:"periodicityRange" bson:"periodicityRange,omitempty"`
 }
 
-

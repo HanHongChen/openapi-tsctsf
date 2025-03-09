@@ -14,11 +14,6 @@ package models
 
 import (
 	
-	"encoding/json"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/bsontype"
-	
-    "bitbucket.org/free5GC/openapi/custom"
 )
 
 
@@ -26,134 +21,11 @@ import (
 // Describes AF requirements on steering traffic to N6-LAN.
 type AfSfcRequirement struct {
 	// Reference to a pre-configured SFC for downlink traffic.
-	SfcIdDl *custom.Nullable[string] `json:"sfcIdDl,omitempty" yaml:"sfcIdDl" bson:"sfcIdDl,omitempty"`
+	SfcIdDl string `json:"sfcIdDl,omitempty" yaml:"sfcIdDl" bson:"sfcIdDl,omitempty"`
 	// Reference to a pre-configured SFC for uplink traffic.
-	SfcIdUl *custom.Nullable[string] `json:"sfcIdUl,omitempty" yaml:"sfcIdUl" bson:"sfcIdUl,omitempty"`
-	SpVal *custom.Nullable[SpatialValidityRm] `json:"spVal,omitempty" yaml:"spVal" bson:"spVal,omitempty"`
+	SfcIdUl string `json:"sfcIdUl,omitempty" yaml:"sfcIdUl" bson:"sfcIdUl,omitempty"`
+	SpVal *SpatialValidityRm `json:"spVal,omitempty" yaml:"spVal" bson:"spVal,omitempty"`
 	// A String which is transparently passed to the UPF to be applied for traffic to SFC. 
-	Metadata *custom.Nullable[string] `json:"metadata,omitempty" yaml:"metadata" bson:"metadata,omitempty"`
-}
-var _ json.Unmarshaler = (*AfSfcRequirement)(nil)
-
-func (m *AfSfcRequirement) UnmarshalJSON(data []byte) error {
-	var err error
-	var b _AfSfcRequirementJSONUnmarshalBuffer
-	if err = json.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	if len(b.SfcIdDl) != 0 {
-		m.SfcIdDl = custom.NewNullableNull[string]()
-		err = m.SfcIdDl.UnmarshalJSON(b.SfcIdDl)
-		if err != nil {
-			return err
-		}
-	}
-	if len(b.SfcIdUl) != 0 {
-		m.SfcIdUl = custom.NewNullableNull[string]()
-		err = m.SfcIdUl.UnmarshalJSON(b.SfcIdUl)
-		if err != nil {
-			return err
-		}
-	}
-	if len(b.SpVal) != 0 {
-		m.SpVal = custom.NewNullableNull[SpatialValidityRm]()
-		err = m.SpVal.UnmarshalJSON(b.SpVal)
-		if err != nil {
-			return err
-		}
-	}
-	if len(b.Metadata) != 0 {
-		m.Metadata = custom.NewNullableNull[string]()
-		err = m.Metadata.UnmarshalJSON(b.Metadata)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// _AfSfcRequirementJSONUnmarshaler is used to unmarshal the null properties into the AfSfcRequirement struct
-type _AfSfcRequirementJSONUnmarshalBuffer struct {
-	SfcIdDl json.RawMessage `json:"sfcIdDl,omitempty"`
-	SfcIdUl json.RawMessage `json:"sfcIdUl,omitempty"`
-	SpVal json.RawMessage `json:"spVal,omitempty"`
-	Metadata json.RawMessage `json:"metadata,omitempty"`
-}
-
-var _ bson.Unmarshaler = (*AfSfcRequirement)(nil)
-
-func (m *AfSfcRequirement) UnmarshalBSON(data []byte) error {
-	var err error
-	var b _AfSfcRequirementBSONUnmarshalBuffer
-	if err = bson.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	if b.SfcIdDl != nil {
-		var bt bsontype.Type
-		switch len(b.SfcIdDl) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeString
-		}
-		m.SfcIdDl = custom.NewNullableNull[string]()
-		err = m.SfcIdDl.UnmarshalBSONValue(bt, b.SfcIdDl)
-		if err != nil {
-			return err
-		}
-	}
-	if b.SfcIdUl != nil {
-		var bt bsontype.Type
-		switch len(b.SfcIdUl) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeString
-		}
-		m.SfcIdUl = custom.NewNullableNull[string]()
-		err = m.SfcIdUl.UnmarshalBSONValue(bt, b.SfcIdUl)
-		if err != nil {
-			return err
-		}
-	}
-	if b.SpVal != nil {
-		var bt bsontype.Type
-		switch len(b.SpVal) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeEmbeddedDocument
-		}
-		m.SpVal = custom.NewNullableNull[SpatialValidityRm]()
-		err = m.SpVal.UnmarshalBSONValue(bt, b.SpVal)
-		if err != nil {
-			return err
-		}
-	}
-	if b.Metadata != nil {
-		var bt bsontype.Type
-		switch len(b.Metadata) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeEmbeddedDocument
-		}
-		m.Metadata = custom.NewNullableNull[string]()
-		err = m.Metadata.UnmarshalBSONValue(bt, b.Metadata)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// _AfSfcRequirementBSONUnmarshalBuffer is used to unmarshal the null properties into the AfSfcRequirement struct
-type _AfSfcRequirementBSONUnmarshalBuffer struct {
-	SfcIdDl bson.Raw `bson:"sfcIdDl,omitempty"`
-	SfcIdUl bson.Raw `bson:"sfcIdUl,omitempty"`
-	SpVal bson.Raw `bson:"spVal,omitempty"`
-	Metadata bson.Raw `bson:"metadata,omitempty"`
+	Metadata string `json:"metadata,omitempty" yaml:"metadata" bson:"metadata,omitempty"`
 }
 

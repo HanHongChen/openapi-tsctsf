@@ -33,4 +33,3 @@ type PointAltitudeUncertainty struct {
 	VConfidence int32 `json:"vConfidence,omitempty" yaml:"vConfidence" bson:"vConfidence,omitempty"`
 }
 
-

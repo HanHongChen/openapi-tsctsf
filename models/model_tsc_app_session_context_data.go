@@ -60,4 +60,3 @@ type TscAppSessionContextData struct {
 	SuppFeat string `json:"suppFeat,omitempty" yaml:"suppFeat" bson:"suppFeat,omitempty"`
 }
 
-

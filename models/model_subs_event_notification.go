@@ -24,4 +24,3 @@ type SubsEventNotification struct {
 	TimeSyncCapas []TimeSyncCapability `json:"timeSyncCapas,omitempty" yaml:"timeSyncCapas" bson:"timeSyncCapas,omitempty"`
 }
 
-

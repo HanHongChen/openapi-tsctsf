@@ -37,4 +37,3 @@ type MediaSubComponent struct {
 	EvSubsc *EventsSubscReqData `json:"evSubsc,omitempty" yaml:"evSubsc" bson:"evSubsc,omitempty"`
 }
 
-

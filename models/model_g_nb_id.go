@@ -26,4 +26,3 @@ type GNbId struct {
 	GNBValue string `json:"gNBValue,omitempty" yaml:"gNBValue" bson:"gNBValue,omitempty"`
 }
 
-

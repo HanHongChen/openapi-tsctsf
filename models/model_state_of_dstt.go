@@ -29,4 +29,3 @@ type StateOfDstt struct {
 	ClkQltIndOfDstt AcceptanceCriteriaResultIndication `json:"clkQltIndOfDstt,omitempty" yaml:"clkQltIndOfDstt" bson:"clkQltIndOfDstt,omitempty"`
 }
 
-

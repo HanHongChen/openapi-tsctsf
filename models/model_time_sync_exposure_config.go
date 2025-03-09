@@ -42,4 +42,3 @@ type TimeSyncExposureConfig struct {
 	ClkQltAcptCri *ClockQualityAcceptanceCriterion `json:"clkQltAcptCri,omitempty" yaml:"clkQltAcptCri" bson:"clkQltAcptCri,omitempty"`
 }
 
-

@@ -26,4 +26,3 @@ type RtpHeaderExtInfo struct {
 	PduSetSizeActive bool `json:"pduSetSizeActive,omitempty" yaml:"pduSetSizeActive" bson:"pduSetSizeActive,omitempty"`
 }
 
-

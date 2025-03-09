@@ -26,4 +26,3 @@ type PointAltitude struct {
 	Altitude float64 `json:"altitude,omitempty" yaml:"altitude" bson:"altitude,omitempty"`
 }
 
-

@@ -37,4 +37,3 @@ type PresenceInfo struct {
 	GlobaleNbIdList []GlobalRanNodeId `json:"globaleNbIdList,omitempty" yaml:"globaleNbIdList" bson:"globaleNbIdList,omitempty"`
 }
 
-

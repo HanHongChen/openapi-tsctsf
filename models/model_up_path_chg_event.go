@@ -28,4 +28,3 @@ type UpPathChgEvent struct {
 	AfAckInd bool `json:"afAckInd,omitempty" yaml:"afAckInd" bson:"afAckInd,omitempty"`
 }
 
-

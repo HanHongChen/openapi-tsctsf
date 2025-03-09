@@ -23,4 +23,3 @@ type StringMatchingRule struct {
 	StringMatchingConditions []StringMatchingCondition `json:"stringMatchingConditions,omitempty" yaml:"stringMatchingConditions" bson:"stringMatchingConditions,omitempty"`
 }
 
-

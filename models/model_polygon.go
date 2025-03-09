@@ -25,4 +25,3 @@ type Polygon struct {
 	PointList []GeographicalCoordinates `json:"pointList,omitempty" yaml:"pointList" bson:"pointList,omitempty"`
 }
 
-

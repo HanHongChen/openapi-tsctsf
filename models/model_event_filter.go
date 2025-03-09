@@ -28,4 +28,3 @@ type EventFilter struct {
 	PtpProfiles []string `json:"ptpProfiles,omitempty" yaml:"ptpProfiles" bson:"ptpProfiles,omitempty"`
 }
 
-

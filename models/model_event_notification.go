@@ -31,4 +31,3 @@ type EventNotification struct {
 	AltQosNotSuppInd bool `json:"altQosNotSuppInd,omitempty" yaml:"altQosNotSuppInd" bson:"altQosNotSuppInd,omitempty"`
 }
 
-

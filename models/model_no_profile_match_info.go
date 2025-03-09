@@ -24,4 +24,3 @@ type NoProfileMatchInfo struct {
 	QueryParamCombinationList []QueryParamCombination `json:"queryParamCombinationList,omitempty" yaml:"queryParamCombinationList" bson:"queryParamCombinationList,omitempty"`
 }
 
-

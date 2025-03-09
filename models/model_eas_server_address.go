@@ -25,4 +25,3 @@ type EasServerAddress struct {
 	Port int32 `json:"port,omitempty" yaml:"port" bson:"port,omitempty"`
 }
 
-

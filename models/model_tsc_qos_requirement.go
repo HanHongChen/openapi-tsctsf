@@ -14,11 +14,6 @@ package models
 
 import (
 	
-	"encoding/json"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/bsontype"
-	
-    "bitbucket.org/free5GC/openapi/custom"
 )
 
 
@@ -43,126 +38,9 @@ type TscQosRequirement struct {
 	Priority int32 `json:"priority,omitempty" yaml:"priority" bson:"priority,omitempty"`
 	// Unsigned Integer, i.e. only value 0 and integers above 0 are permissible.
 	TscaiTimeDom int32 `json:"tscaiTimeDom,omitempty" yaml:"tscaiTimeDom" bson:"tscaiTimeDom,omitempty"`
-	TscaiInputDl *custom.Nullable[TscaiInputContainer] `json:"tscaiInputDl,omitempty" yaml:"tscaiInputDl" bson:"tscaiInputDl,omitempty"`
-	TscaiInputUl *custom.Nullable[TscaiInputContainer] `json:"tscaiInputUl,omitempty" yaml:"tscaiInputUl" bson:"tscaiInputUl,omitempty"`
+	TscaiInputDl *TscaiInputContainer `json:"tscaiInputDl,omitempty" yaml:"tscaiInputDl" bson:"tscaiInputDl,omitempty"`
+	TscaiInputUl *TscaiInputContainer `json:"tscaiInputUl,omitempty" yaml:"tscaiInputUl" bson:"tscaiInputUl,omitempty"`
 	// Indicates the capability for AF to adjust the burst sending time, when it is supported and set to \"true\". The default value is \"false\" if omitted. 
 	CapBatAdaptation bool `json:"capBatAdaptation,omitempty" yaml:"capBatAdaptation" bson:"capBatAdaptation,omitempty"`
-}
-var _ json.Unmarshaler = (*TscQosRequirement)(nil)
-
-func (m *TscQosRequirement) UnmarshalJSON(data []byte) error {
-	var err error
-	var b _TscQosRequirementJSONUnmarshalBuffer
-	if err = json.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	m.ReqGbrDl = b.ReqGbrDl
-	m.ReqGbrUl = b.ReqGbrUl
-	m.ReqMbrDl = b.ReqMbrDl
-	m.ReqMbrUl = b.ReqMbrUl
-	m.MaxTscBurstSize = b.MaxTscBurstSize
-	m.Req5Gsdelay = b.Req5Gsdelay
-	m.ReqPer = b.ReqPer
-	m.Priority = b.Priority
-	m.TscaiTimeDom = b.TscaiTimeDom
-	if len(b.TscaiInputDl) != 0 {
-		m.TscaiInputDl = custom.NewNullableNull[TscaiInputContainer]()
-		err = m.TscaiInputDl.UnmarshalJSON(b.TscaiInputDl)
-		if err != nil {
-			return err
-		}
-	}
-	if len(b.TscaiInputUl) != 0 {
-		m.TscaiInputUl = custom.NewNullableNull[TscaiInputContainer]()
-		err = m.TscaiInputUl.UnmarshalJSON(b.TscaiInputUl)
-		if err != nil {
-			return err
-		}
-	}
-	m.CapBatAdaptation = b.CapBatAdaptation
-
-	return nil
-}
-
-// _TscQosRequirementJSONUnmarshaler is used to unmarshal the null properties into the TscQosRequirement struct
-type _TscQosRequirementJSONUnmarshalBuffer struct {
-	ReqGbrDl string `json:"reqGbrDl,omitempty"`
-	ReqGbrUl string `json:"reqGbrUl,omitempty"`
-	ReqMbrDl string `json:"reqMbrDl,omitempty"`
-	ReqMbrUl string `json:"reqMbrUl,omitempty"`
-	MaxTscBurstSize int32 `json:"maxTscBurstSize,omitempty"`
-	Req5Gsdelay int32 `json:"req5Gsdelay,omitempty"`
-	ReqPer string `json:"reqPer,omitempty"`
-	Priority int32 `json:"priority,omitempty"`
-	TscaiTimeDom int32 `json:"tscaiTimeDom,omitempty"`
-	TscaiInputDl json.RawMessage `json:"tscaiInputDl,omitempty"`
-	TscaiInputUl json.RawMessage `json:"tscaiInputUl,omitempty"`
-	CapBatAdaptation bool `json:"capBatAdaptation,omitempty"`
-}
-
-var _ bson.Unmarshaler = (*TscQosRequirement)(nil)
-
-func (m *TscQosRequirement) UnmarshalBSON(data []byte) error {
-	var err error
-	var b _TscQosRequirementBSONUnmarshalBuffer
-	if err = bson.Unmarshal(data, &b); err != nil {
-		return err
-	}
-	m.ReqGbrDl = b.ReqGbrDl
-	m.ReqGbrUl = b.ReqGbrUl
-	m.ReqMbrDl = b.ReqMbrDl
-	m.ReqMbrUl = b.ReqMbrUl
-	m.MaxTscBurstSize = b.MaxTscBurstSize
-	m.Req5Gsdelay = b.Req5Gsdelay
-	m.ReqPer = b.ReqPer
-	m.Priority = b.Priority
-	m.TscaiTimeDom = b.TscaiTimeDom
-	if b.TscaiInputDl != nil {
-		var bt bsontype.Type
-		switch len(b.TscaiInputDl) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeEmbeddedDocument
-		}
-		m.TscaiInputDl = custom.NewNullableNull[TscaiInputContainer]()
-		err = m.TscaiInputDl.UnmarshalBSONValue(bt, b.TscaiInputDl)
-		if err != nil {
-			return err
-		}
-	}
-	if b.TscaiInputUl != nil {
-		var bt bsontype.Type
-		switch len(b.TscaiInputUl) {
-		case 0:
-			bt = bson.TypeNull
-		default:
-			bt = bson.TypeEmbeddedDocument
-		}
-		m.TscaiInputUl = custom.NewNullableNull[TscaiInputContainer]()
-		err = m.TscaiInputUl.UnmarshalBSONValue(bt, b.TscaiInputUl)
-		if err != nil {
-			return err
-		}
-	}
-	m.CapBatAdaptation = b.CapBatAdaptation
-
-	return nil
-}
-
-// _TscQosRequirementBSONUnmarshalBuffer is used to unmarshal the null properties into the TscQosRequirement struct
-type _TscQosRequirementBSONUnmarshalBuffer struct {
-	ReqGbrDl string `bson:"reqGbrDl,omitempty"`
-	ReqGbrUl string `bson:"reqGbrUl,omitempty"`
-	ReqMbrDl string `bson:"reqMbrDl,omitempty"`
-	ReqMbrUl string `bson:"reqMbrUl,omitempty"`
-	MaxTscBurstSize int32 `bson:"maxTscBurstSize,omitempty"`
-	Req5Gsdelay int32 `bson:"req5Gsdelay,omitempty"`
-	ReqPer string `bson:"reqPer,omitempty"`
-	Priority int32 `bson:"priority,omitempty"`
-	TscaiTimeDom int32 `bson:"tscaiTimeDom,omitempty"`
-	TscaiInputDl bson.Raw `bson:"tscaiInputDl,omitempty"`
-	TscaiInputUl bson.Raw `bson:"tscaiInputUl,omitempty"`
-	CapBatAdaptation bool `bson:"capBatAdaptation,omitempty"`
 }
 

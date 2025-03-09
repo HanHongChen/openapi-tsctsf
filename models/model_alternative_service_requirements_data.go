@@ -32,4 +32,3 @@ type AlternativeServiceRequirementsData struct {
 	Per string `json:"per,omitempty" yaml:"per" bson:"per,omitempty"`
 }
 
-

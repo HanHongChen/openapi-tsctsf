@@ -25,4 +25,3 @@ type TerminationInfo struct {
 	ResUri string `json:"resUri,omitempty" yaml:"resUri" bson:"resUri,omitempty"`
 }
 
-

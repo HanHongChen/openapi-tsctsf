@@ -25,4 +25,3 @@ type SpatialValidityCond struct {
 	GeographicalServiceArea *GeoServiceArea `json:"geographicalServiceArea,omitempty" yaml:"geographicalServiceArea" bson:"geographicalServiceArea,omitempty"`
 }
 
-
