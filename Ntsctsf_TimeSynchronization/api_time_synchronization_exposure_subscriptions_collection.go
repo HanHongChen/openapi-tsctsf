@@ -1,9 +1,9 @@
 /*
  * Ntsctsf_TimeSynchronization Service API
  *
- * TSCTSF Time Synchronization Service.   © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).   All rights reserved. 
+ * TSCTSF Time Synchronization Service.   © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).   All rights reserved.
  *
- * Source file: 3GPP TS 29.565 V18.5.0; 5G System; Time Sensitive Communication and Time Synchronization Function  Services; Stage 3. 
+ * Source file: 3GPP TS 29.565 V18.5.0; 5G System; Time Sensitive Communication and Time Synchronization Function  Services; Stage 3.
  * Url: https://www.3gpp.org/ftp/Specs/archive/29_series/29.565/
  *
  * API version: 1.1.0-alpha.6
@@ -13,8 +13,8 @@
 package TimeSynchronization
 
 import (
-    "bitbucket.org/free5GC/openapi"
-    "bitbucket.org/free5GC/openapi/models"
+	"github.com/HanHongChen/openapi-tsctsf/models"
+	"github.com/free5gc/openapi"
 
 	"context"
 	"io"
@@ -39,20 +39,20 @@ TimeSynchronizationExposureSubscriptionsCollectionApiService Creates a new subsc
 
 // TimeSynchronizationExposureSubscriptionsRequest
 type TimeSynchronizationExposureSubscriptionsRequest struct {
-    TimeSyncExposureSubsc *models.TimeSyncExposureSubsc
+	TimeSyncExposureSubsc *models.TimeSyncExposureSubsc
 }
 
 func (r *TimeSynchronizationExposureSubscriptionsRequest) SetTimeSyncExposureSubsc(TimeSyncExposureSubsc models.TimeSyncExposureSubsc) {
-    r.TimeSyncExposureSubsc = &TimeSyncExposureSubsc
+	r.TimeSyncExposureSubsc = &TimeSyncExposureSubsc
 }
 
 type TimeSynchronizationExposureSubscriptionsResponse struct {
-    Location string
-    TimeSyncExposureSubsc *models.TimeSyncExposureSubsc
+	Location              string
+	TimeSyncExposureSubsc *models.TimeSyncExposureSubsc
 }
 
 type TimeSynchronizationExposureSubscriptionsError struct {
-        ProblemDetails *models.ProblemDetails
+	ProblemDetails *models.ProblemDetails
 }
 
 func (a *TimeSynchronizationExposureSubscriptionsCollectionApiService) TimeSynchronizationExposureSubscriptions(ctx context.Context, request *TimeSynchronizationExposureSubscriptionsRequest) (*TimeSynchronizationExposureSubscriptionsResponse, error) {
@@ -71,13 +71,13 @@ func (a *TimeSynchronizationExposureSubscriptionsCollectionApiService) TimeSynch
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	
-    localVarHTTPContentTypes := []string{ "application/json" }
-    
-    localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{ "application/json", "application/problem+json" }
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -85,11 +85,8 @@ func (a *TimeSynchronizationExposureSubscriptionsCollectionApiService) TimeSynch
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-
-
 	// body params
 	localVarPostBody = request.TimeSyncExposureSubsc
-
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -102,7 +99,7 @@ func (a *TimeSynchronizationExposureSubscriptionsCollectionApiService) TimeSynch
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-    if err != nil {
+	if err != nil {
 		return nil, err
 	}
 	err = localVarHTTPResponse.Body.Close()
@@ -110,307 +107,302 @@ func (a *TimeSynchronizationExposureSubscriptionsCollectionApiService) TimeSynch
 		return nil, err
 	}
 
-    apiError := openapi.GenericOpenAPIError{
-        RawBody:     localVarBody,
-        ErrorStatus: localVarHTTPResponse.StatusCode,
-    }
+	apiError := openapi.GenericOpenAPIError{
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.StatusCode,
+	}
 
-    switch localVarHTTPResponse.StatusCode {
-        case 201:
-            err = openapi.Deserialize(&localVarReturnValue.TimeSyncExposureSubsc, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            localVarReturnValue.Location = localVarHTTPResponse.Header.Get("Location")
-            return &localVarReturnValue, nil
-        case 400:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 401:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 403:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 404:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 411:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 413:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 415:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 429:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 500:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 502:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 503:
-            var v TimeSynchronizationExposureSubscriptionsError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        default:
-            return nil, apiError
-    }
+	switch localVarHTTPResponse.StatusCode {
+	case 201:
+		err = openapi.Deserialize(&localVarReturnValue.TimeSyncExposureSubsc, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		localVarReturnValue.Location = localVarHTTPResponse.Header.Get("Location")
+		return &localVarReturnValue, nil
+	case 400:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 401:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 403:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 404:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 411:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 413:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 415:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 429:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 500:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 502:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 503:
+		var v TimeSynchronizationExposureSubscriptionsError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	default:
+		return nil, apiError
+	}
 }
-
 
 // TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostRequest
 type TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostRequest struct {
-    TimeSyncExposureSubsNotif *models.TimeSyncExposureSubsNotif
+	TimeSyncExposureSubsNotif *models.TimeSyncExposureSubsNotif
 }
 
 func (r *TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostRequest) SetTimeSyncExposureSubsNotif(TimeSyncExposureSubsNotif models.TimeSyncExposureSubsNotif) {
-r.TimeSyncExposureSubsNotif = &TimeSyncExposureSubsNotif
+	r.TimeSyncExposureSubsNotif = &TimeSyncExposureSubsNotif
 }
 
 type TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostResponse struct {
-        }
+}
 
 type TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError struct {
-    Location string
-Var3gppSbiTargetNfId string
-    ProblemDetails *models.ProblemDetails
-RedirectResponse *models.RedirectResponse
+	Location             string
+	Var3gppSbiTargetNfId string
+	ProblemDetails       *models.ProblemDetails
+	RedirectResponse     *models.RedirectResponse
 }
 
 func (a *TimeSynchronizationExposureSubscriptionsCollectionApiService) TimeSynchronizationExposureSubscriptionsSubsEventNotificationPost(ctx context.Context, uri string, request *TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostRequest) (*TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostResponse, error) {
-    var (
-    localVarHTTPMethod   = strings.ToUpper("Post")
-    localVarPostBody     interface{}
-    localVarFormFileName string
-    localVarFileName     string
-    localVarFileBytes    []byte
-    localVarReturnValue  TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostResponse
-    )
+	var (
+		localVarHTTPMethod   = strings.ToUpper("Post")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostResponse
+	)
 
-    // create path and map variables
-    localVarPath := uri
+	// create path and map variables
+	localVarPath := uri
 
-    localVarHeaderParams := make(map[string]string)
-    localVarQueryParams := url.Values{}
-    localVarFormParams := url.Values{}
-    
-    localVarHTTPContentTypes := []string{ "application/json" }
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
-    localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHTTPContentTypes := []string{"application/json"}
 
-    // to determine the Accept header
-    localVarHTTPHeaderAccepts := []string{ "application/json", "application/problem+json" }
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
-    // set Accept header
-    localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
-    if localVarHTTPHeaderAccept != "" {
-    localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-}
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
+	// set Accept header
+	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 
+	// body params
+	localVarPostBody = request.TimeSyncExposureSubsNotif
 
-    // body params
-        localVarPostBody = request.TimeSyncExposureSubsNotif
-    
-
-    r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-    if err != nil {
-        return nil, err
-    }
-
-    localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-    if err != nil || localVarHTTPResponse == nil {
-        return nil, err
-    }
-
-    localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-    if err != nil {
+	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
 		return nil, err
 	}
-    err = localVarHTTPResponse.Body.Close()
-    if err != nil {
-        return nil, err
-    }
 
-    apiError := openapi.GenericOpenAPIError{
-        RawBody:     localVarBody,
-        ErrorStatus: localVarHTTPResponse.StatusCode,
-    }
+	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
+	if err != nil || localVarHTTPResponse == nil {
+		return nil, err
+	}
 
-    switch localVarHTTPResponse.StatusCode {
-        case 204:
-            return &localVarReturnValue, nil
-        case 307:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-                v.Location = localVarHTTPResponse.Header.Get("Location")
-                v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 308:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-                v.Location = localVarHTTPResponse.Header.Get("Location")
-                v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 400:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 401:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 403:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 404:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 411:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 413:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 415:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 429:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 500:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 502:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 503:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        default:
-            var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
-            apiError.ErrorModel = v
-            return nil, apiError
-    }
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	if err != nil {
+		return nil, err
+	}
+	err = localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	apiError := openapi.GenericOpenAPIError{
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.StatusCode,
+	}
+
+	switch localVarHTTPResponse.StatusCode {
+	case 204:
+		return &localVarReturnValue, nil
+	case 307:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 308:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 400:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 401:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 403:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 404:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 411:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 413:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 415:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 429:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 500:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 502:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 503:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	default:
+		var v TimeSynchronizationExposureSubscriptionsSubsEventNotificationPostError
+		apiError.ErrorModel = v
+		return nil, apiError
+	}
 }
-

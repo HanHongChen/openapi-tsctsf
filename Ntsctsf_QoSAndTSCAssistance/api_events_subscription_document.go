@@ -1,9 +1,9 @@
 /*
  * Ntsctsf_QoSandTSCAssistance Service API
  *
- * TSCTSF QoS and TSC Assistance Service.   © 2023, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).   All rights reserved. 
+ * TSCTSF QoS and TSC Assistance Service.   © 2023, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).   All rights reserved.
  *
- * Source file: 3GPP TS 29.565 V18.3.0; 5G System; Time Sensitive Communication and Time Synchronization function  Services; Stage 3. 
+ * Source file: 3GPP TS 29.565 V18.3.0; 5G System; Time Sensitive Communication and Time Synchronization function  Services; Stage 3.
  * Url: https://www.3gpp.org/ftp/Specs/archive/29_series/29.565/
  *
  * API version: 1.1.0-alpha.4
@@ -13,8 +13,8 @@
 package QoSandTSCAssistance
 
 import (
-    "bitbucket.org/free5GC/openapi"
-    "bitbucket.org/free5GC/openapi/models"
+	"github.com/HanHongChen/openapi-tsctsf/models"
+	"github.com/free5gc/openapi"
 
 	"context"
 	"io"
@@ -39,21 +39,21 @@ EventsSubscriptionDocumentApiService Deletes the Events Subscription subresource
 
 // DeleteEventsSubscRequest
 type DeleteEventsSubscRequest struct {
-    AppSessionId *string
+	AppSessionId *string
 }
 
 func (r *DeleteEventsSubscRequest) SetAppSessionId(AppSessionId string) {
-    r.AppSessionId = &AppSessionId
+	r.AppSessionId = &AppSessionId
 }
 
 type DeleteEventsSubscResponse struct {
-        }
+}
 
 type DeleteEventsSubscError struct {
-    Location string
-Var3gppSbiTargetNfId string
-    ProblemDetails *models.ProblemDetails
-RedirectResponse *models.RedirectResponse
+	Location             string
+	Var3gppSbiTargetNfId string
+	ProblemDetails       *models.ProblemDetails
+	RedirectResponse     *models.RedirectResponse
 }
 
 func (a *EventsSubscriptionDocumentApiService) DeleteEventsSubsc(ctx context.Context, request *DeleteEventsSubscRequest) (*DeleteEventsSubscResponse, error) {
@@ -73,23 +73,19 @@ func (a *EventsSubscriptionDocumentApiService) DeleteEventsSubsc(ctx context.Con
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	
 
-    localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
-    localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{ "application/json", "application/problem+json" }
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-
-
-
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -102,7 +98,7 @@ func (a *EventsSubscriptionDocumentApiService) DeleteEventsSubsc(ctx context.Con
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-    if err != nil {
+	if err != nil {
 		return nil, err
 	}
 	err = localVarHTTPResponse.Body.Close()
@@ -110,104 +106,102 @@ func (a *EventsSubscriptionDocumentApiService) DeleteEventsSubsc(ctx context.Con
 		return nil, err
 	}
 
-    apiError := openapi.GenericOpenAPIError{
-        RawBody:     localVarBody,
-        ErrorStatus: localVarHTTPResponse.StatusCode,
-    }
+	apiError := openapi.GenericOpenAPIError{
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.StatusCode,
+	}
 
-    switch localVarHTTPResponse.StatusCode {
-        case 204:
-            return &localVarReturnValue, nil
-        case 307:
-            var v DeleteEventsSubscError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 308:
-            var v DeleteEventsSubscError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 400:
-            var v DeleteEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 401:
-            var v DeleteEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 403:
-            var v DeleteEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 404:
-            var v DeleteEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 429:
-            var v DeleteEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 500:
-            var v DeleteEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 502:
-            var v DeleteEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 503:
-            var v DeleteEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        default:
-            return nil, apiError
-    }
+	switch localVarHTTPResponse.StatusCode {
+	case 204:
+		return &localVarReturnValue, nil
+	case 307:
+		var v DeleteEventsSubscError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 308:
+		var v DeleteEventsSubscError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 400:
+		var v DeleteEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 401:
+		var v DeleteEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 403:
+		var v DeleteEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 404:
+		var v DeleteEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 429:
+		var v DeleteEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 500:
+		var v DeleteEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 502:
+		var v DeleteEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 503:
+		var v DeleteEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	default:
+		return nil, apiError
+	}
 }
-
-
 
 /*
 EventsSubscriptionDocumentApiService Creates or modifies an Events Subscription subresource
@@ -220,27 +214,27 @@ EventsSubscriptionDocumentApiService Creates or modifies an Events Subscription 
 
 // PutEventsSubscRequest
 type PutEventsSubscRequest struct {
-    AppSessionId *string
-    EventsSubscReqData *models.EventsSubscReqData
+	AppSessionId       *string
+	EventsSubscReqData *models.EventsSubscReqData
 }
 
 func (r *PutEventsSubscRequest) SetAppSessionId(AppSessionId string) {
-    r.AppSessionId = &AppSessionId
+	r.AppSessionId = &AppSessionId
 }
 func (r *PutEventsSubscRequest) SetEventsSubscReqData(EventsSubscReqData models.EventsSubscReqData) {
-    r.EventsSubscReqData = &EventsSubscReqData
+	r.EventsSubscReqData = &EventsSubscReqData
 }
 
 type PutEventsSubscResponse struct {
-    Location string
-    EventsSubscReqData *models.EventsSubscReqData
+	Location           string
+	EventsSubscReqData *models.EventsSubscReqData
 }
 
 type PutEventsSubscError struct {
-    Location string
-Var3gppSbiTargetNfId string
-    ProblemDetails *models.ProblemDetails
-RedirectResponse *models.RedirectResponse
+	Location             string
+	Var3gppSbiTargetNfId string
+	ProblemDetails       *models.ProblemDetails
+	RedirectResponse     *models.RedirectResponse
 }
 
 func (a *EventsSubscriptionDocumentApiService) PutEventsSubsc(ctx context.Context, request *PutEventsSubscRequest) (*PutEventsSubscResponse, error) {
@@ -260,13 +254,13 @@ func (a *EventsSubscriptionDocumentApiService) PutEventsSubsc(ctx context.Contex
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	
-    localVarHTTPContentTypes := []string{ "application/json" }
-    
-    localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{ "application/json", "application/problem+json" }
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -274,11 +268,8 @@ func (a *EventsSubscriptionDocumentApiService) PutEventsSubsc(ctx context.Contex
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-
-
 	// body params
 	localVarPostBody = request.EventsSubscReqData
-
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -291,7 +282,7 @@ func (a *EventsSubscriptionDocumentApiService) PutEventsSubsc(ctx context.Contex
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-    if err != nil {
+	if err != nil {
 		return nil, err
 	}
 	err = localVarHTTPResponse.Body.Close()
@@ -299,335 +290,330 @@ func (a *EventsSubscriptionDocumentApiService) PutEventsSubsc(ctx context.Contex
 		return nil, err
 	}
 
-    apiError := openapi.GenericOpenAPIError{
-        RawBody:     localVarBody,
-        ErrorStatus: localVarHTTPResponse.StatusCode,
-    }
+	apiError := openapi.GenericOpenAPIError{
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.StatusCode,
+	}
 
-    switch localVarHTTPResponse.StatusCode {
-        case 201:
-            err = openapi.Deserialize(&localVarReturnValue.EventsSubscReqData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            localVarReturnValue.Location = localVarHTTPResponse.Header.Get("Location")
-            return &localVarReturnValue, nil
-        case 200:
-            err = openapi.Deserialize(&localVarReturnValue.EventsSubscReqData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            return &localVarReturnValue, nil
-        case 204:
-            return &localVarReturnValue, nil
-        case 307:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 308:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 400:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 401:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 403:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 404:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 411:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 413:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 415:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 429:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 500:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 502:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 503:
-            var v PutEventsSubscError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        default:
-            return nil, apiError
-    }
+	switch localVarHTTPResponse.StatusCode {
+	case 201:
+		err = openapi.Deserialize(&localVarReturnValue.EventsSubscReqData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		localVarReturnValue.Location = localVarHTTPResponse.Header.Get("Location")
+		return &localVarReturnValue, nil
+	case 200:
+		err = openapi.Deserialize(&localVarReturnValue.EventsSubscReqData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		return &localVarReturnValue, nil
+	case 204:
+		return &localVarReturnValue, nil
+	case 307:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 308:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 400:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 401:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 403:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 404:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 411:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 413:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 415:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 429:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 500:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 502:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 503:
+		var v PutEventsSubscError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	default:
+		return nil, apiError
+	}
 }
-
 
 // PutEventsSubscEventNotificationPostRequest
 type PutEventsSubscEventNotificationPostRequest struct {
-    EventsNotification *models.EventsNotification
+	EventsNotification *models.EventsNotification
 }
 
 func (r *PutEventsSubscEventNotificationPostRequest) SetEventsNotification(EventsNotification models.EventsNotification) {
-r.EventsNotification = &EventsNotification
+	r.EventsNotification = &EventsNotification
 }
 
 type PutEventsSubscEventNotificationPostResponse struct {
-        }
+}
 
 type PutEventsSubscEventNotificationPostError struct {
-    Location string
-Var3gppSbiTargetNfId string
-    ProblemDetails *models.ProblemDetails
-RedirectResponse *models.RedirectResponse
+	Location             string
+	Var3gppSbiTargetNfId string
+	ProblemDetails       *models.ProblemDetails
+	RedirectResponse     *models.RedirectResponse
 }
 
 func (a *EventsSubscriptionDocumentApiService) PutEventsSubscEventNotificationPost(ctx context.Context, uri string, request *PutEventsSubscEventNotificationPostRequest) (*PutEventsSubscEventNotificationPostResponse, error) {
-    var (
-    localVarHTTPMethod   = strings.ToUpper("Post")
-    localVarPostBody     interface{}
-    localVarFormFileName string
-    localVarFileName     string
-    localVarFileBytes    []byte
-    localVarReturnValue  PutEventsSubscEventNotificationPostResponse
-    )
+	var (
+		localVarHTTPMethod   = strings.ToUpper("Post")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  PutEventsSubscEventNotificationPostResponse
+	)
 
-    // create path and map variables
-    localVarPath := uri
+	// create path and map variables
+	localVarPath := uri
 
-    localVarHeaderParams := make(map[string]string)
-    localVarQueryParams := url.Values{}
-    localVarFormParams := url.Values{}
-    
-    localVarHTTPContentTypes := []string{ "application/json" }
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
-    localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHTTPContentTypes := []string{"application/json"}
 
-    // to determine the Accept header
-    localVarHTTPHeaderAccepts := []string{ "application/json", "application/problem+json" }
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
-    // set Accept header
-    localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
-    if localVarHTTPHeaderAccept != "" {
-    localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-}
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
+	// set Accept header
+	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 
+	// body params
+	localVarPostBody = request.EventsNotification
 
-    // body params
-        localVarPostBody = request.EventsNotification
-    
-
-    r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-    if err != nil {
-        return nil, err
-    }
-
-    localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-    if err != nil || localVarHTTPResponse == nil {
-        return nil, err
-    }
-
-    localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-    if err != nil {
+	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
 		return nil, err
 	}
-    err = localVarHTTPResponse.Body.Close()
-    if err != nil {
-        return nil, err
-    }
 
-    apiError := openapi.GenericOpenAPIError{
-        RawBody:     localVarBody,
-        ErrorStatus: localVarHTTPResponse.StatusCode,
-    }
+	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
+	if err != nil || localVarHTTPResponse == nil {
+		return nil, err
+	}
 
-    switch localVarHTTPResponse.StatusCode {
-        case 204:
-            return &localVarReturnValue, nil
-        case 307:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-                v.Location = localVarHTTPResponse.Header.Get("Location")
-                v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 308:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-                v.Location = localVarHTTPResponse.Header.Get("Location")
-                v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 400:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 401:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 403:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 404:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 411:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 413:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 415:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 429:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 500:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 502:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 503:
-            var v PutEventsSubscEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        default:
-            var v PutEventsSubscEventNotificationPostError
-            apiError.ErrorModel = v
-            return nil, apiError
-    }
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	if err != nil {
+		return nil, err
+	}
+	err = localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	apiError := openapi.GenericOpenAPIError{
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.StatusCode,
+	}
+
+	switch localVarHTTPResponse.StatusCode {
+	case 204:
+		return &localVarReturnValue, nil
+	case 307:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 308:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 400:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 401:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 403:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 404:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 411:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 413:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 415:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 429:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 500:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 502:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 503:
+		var v PutEventsSubscEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	default:
+		var v PutEventsSubscEventNotificationPostError
+		apiError.ErrorModel = v
+		return nil, apiError
+	}
 }
-

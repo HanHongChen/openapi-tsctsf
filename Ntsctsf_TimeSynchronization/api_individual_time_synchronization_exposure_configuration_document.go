@@ -1,9 +1,9 @@
 /*
  * Ntsctsf_TimeSynchronization Service API
  *
- * TSCTSF Time Synchronization Service.   © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).   All rights reserved. 
+ * TSCTSF Time Synchronization Service.   © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).   All rights reserved.
  *
- * Source file: 3GPP TS 29.565 V18.5.0; 5G System; Time Sensitive Communication and Time Synchronization Function  Services; Stage 3. 
+ * Source file: 3GPP TS 29.565 V18.5.0; 5G System; Time Sensitive Communication and Time Synchronization Function  Services; Stage 3.
  * Url: https://www.3gpp.org/ftp/Specs/archive/29_series/29.565/
  *
  * API version: 1.1.0-alpha.6
@@ -13,8 +13,8 @@
 package TimeSynchronization
 
 import (
-    "bitbucket.org/free5GC/openapi"
-    "bitbucket.org/free5GC/openapi/models"
+	"github.com/HanHongChen/openapi-tsctsf/models"
+	"github.com/free5gc/openapi"
 
 	"context"
 	"io"
@@ -40,27 +40,27 @@ IndividualTimeSynchronizationExposureConfigurationDocumentApiService Craete a ne
 
 // CreateIndividualTimeSynchronizationExposureConfigurationRequest
 type CreateIndividualTimeSynchronizationExposureConfigurationRequest struct {
-    SubscriptionId *string
-    TimeSyncExposureConfig *models.TimeSyncExposureConfig
+	SubscriptionId         *string
+	TimeSyncExposureConfig *models.TimeSyncExposureConfig
 }
 
 func (r *CreateIndividualTimeSynchronizationExposureConfigurationRequest) SetSubscriptionId(SubscriptionId string) {
-    r.SubscriptionId = &SubscriptionId
+	r.SubscriptionId = &SubscriptionId
 }
 func (r *CreateIndividualTimeSynchronizationExposureConfigurationRequest) SetTimeSyncExposureConfig(TimeSyncExposureConfig models.TimeSyncExposureConfig) {
-    r.TimeSyncExposureConfig = &TimeSyncExposureConfig
+	r.TimeSyncExposureConfig = &TimeSyncExposureConfig
 }
 
 type CreateIndividualTimeSynchronizationExposureConfigurationResponse struct {
-    Location string
-    TimeSyncExposureConfig *models.TimeSyncExposureConfig
+	Location               string
+	TimeSyncExposureConfig *models.TimeSyncExposureConfig
 }
 
 type CreateIndividualTimeSynchronizationExposureConfigurationError struct {
-    Location string
-Var3gppSbiTargetNfId string
-    ProblemDetails *models.ProblemDetails
-RedirectResponse *models.RedirectResponse
+	Location             string
+	Var3gppSbiTargetNfId string
+	ProblemDetails       *models.ProblemDetails
+	RedirectResponse     *models.RedirectResponse
 }
 
 func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) CreateIndividualTimeSynchronizationExposureConfiguration(ctx context.Context, request *CreateIndividualTimeSynchronizationExposureConfigurationRequest) (*CreateIndividualTimeSynchronizationExposureConfigurationResponse, error) {
@@ -80,13 +80,13 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) C
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	
-    localVarHTTPContentTypes := []string{ "application/json" }
-    
-    localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{ "application/json", "application/problem+json" }
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -94,11 +94,8 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) C
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-
-
 	// body params
 	localVarPostBody = request.TimeSyncExposureConfig
-
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -111,7 +108,7 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) C
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-    if err != nil {
+	if err != nil {
 		return nil, err
 	}
 	err = localVarHTTPResponse.Body.Close()
@@ -119,330 +116,325 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) C
 		return nil, err
 	}
 
-    apiError := openapi.GenericOpenAPIError{
-        RawBody:     localVarBody,
-        ErrorStatus: localVarHTTPResponse.StatusCode,
-    }
+	apiError := openapi.GenericOpenAPIError{
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.StatusCode,
+	}
 
-    switch localVarHTTPResponse.StatusCode {
-        case 201:
-            err = openapi.Deserialize(&localVarReturnValue.TimeSyncExposureConfig, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            localVarReturnValue.Location = localVarHTTPResponse.Header.Get("Location")
-            return &localVarReturnValue, nil
-        case 307:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 308:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 400:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 401:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 403:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 404:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 411:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 413:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 415:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 429:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 500:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 502:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 503:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        default:
-            return nil, apiError
-    }
+	switch localVarHTTPResponse.StatusCode {
+	case 201:
+		err = openapi.Deserialize(&localVarReturnValue.TimeSyncExposureConfig, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		localVarReturnValue.Location = localVarHTTPResponse.Header.Get("Location")
+		return &localVarReturnValue, nil
+	case 307:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 308:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 400:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 401:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 403:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 404:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 411:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 413:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 415:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 429:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 500:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 502:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 503:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	default:
+		return nil, apiError
+	}
 }
-
 
 // CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostRequest
 type CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostRequest struct {
-    TimeSyncExposureConfigNotif *models.TimeSyncExposureConfigNotif
+	TimeSyncExposureConfigNotif *models.TimeSyncExposureConfigNotif
 }
 
 func (r *CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostRequest) SetTimeSyncExposureConfigNotif(TimeSyncExposureConfigNotif models.TimeSyncExposureConfigNotif) {
-r.TimeSyncExposureConfigNotif = &TimeSyncExposureConfigNotif
+	r.TimeSyncExposureConfigNotif = &TimeSyncExposureConfigNotif
 }
 
 type CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostResponse struct {
-        }
+}
 
 type CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError struct {
-    Location string
-Var3gppSbiTargetNfId string
-    ProblemDetails *models.ProblemDetails
-RedirectResponse *models.RedirectResponse
+	Location             string
+	Var3gppSbiTargetNfId string
+	ProblemDetails       *models.ProblemDetails
+	RedirectResponse     *models.RedirectResponse
 }
 
 func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPost(ctx context.Context, uri string, request *CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostRequest) (*CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostResponse, error) {
-    var (
-    localVarHTTPMethod   = strings.ToUpper("Post")
-    localVarPostBody     interface{}
-    localVarFormFileName string
-    localVarFileName     string
-    localVarFileBytes    []byte
-    localVarReturnValue  CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostResponse
-    )
+	var (
+		localVarHTTPMethod   = strings.ToUpper("Post")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostResponse
+	)
 
-    // create path and map variables
-    localVarPath := uri
+	// create path and map variables
+	localVarPath := uri
 
-    localVarHeaderParams := make(map[string]string)
-    localVarQueryParams := url.Values{}
-    localVarFormParams := url.Values{}
-    
-    localVarHTTPContentTypes := []string{ "application/json" }
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
-    localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHTTPContentTypes := []string{"application/json"}
 
-    // to determine the Accept header
-    localVarHTTPHeaderAccepts := []string{ "application/json", "application/problem+json" }
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
-    // set Accept header
-    localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
-    if localVarHTTPHeaderAccept != "" {
-    localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-}
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
+	// set Accept header
+	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 
+	// body params
+	localVarPostBody = request.TimeSyncExposureConfigNotif
 
-    // body params
-        localVarPostBody = request.TimeSyncExposureConfigNotif
-    
-
-    r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-    if err != nil {
-        return nil, err
-    }
-
-    localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-    if err != nil || localVarHTTPResponse == nil {
-        return nil, err
-    }
-
-    localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-    if err != nil {
+	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
 		return nil, err
 	}
-    err = localVarHTTPResponse.Body.Close()
-    if err != nil {
-        return nil, err
-    }
 
-    apiError := openapi.GenericOpenAPIError{
-        RawBody:     localVarBody,
-        ErrorStatus: localVarHTTPResponse.StatusCode,
-    }
+	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
+	if err != nil || localVarHTTPResponse == nil {
+		return nil, err
+	}
 
-    switch localVarHTTPResponse.StatusCode {
-        case 204:
-            return &localVarReturnValue, nil
-        case 307:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-                v.Location = localVarHTTPResponse.Header.Get("Location")
-                v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 308:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-                v.Location = localVarHTTPResponse.Header.Get("Location")
-                v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 400:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 401:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 403:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 404:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 411:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 413:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 415:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 429:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 500:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 502:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 503:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        default:
-            var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
-            apiError.ErrorModel = v
-            return nil, apiError
-    }
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	if err != nil {
+		return nil, err
+	}
+	err = localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	apiError := openapi.GenericOpenAPIError{
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.StatusCode,
+	}
+
+	switch localVarHTTPResponse.StatusCode {
+	case 204:
+		return &localVarReturnValue, nil
+	case 307:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 308:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 400:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 401:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 403:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 404:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 411:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 413:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 415:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 429:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 500:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 502:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 503:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	default:
+		var v CreateIndividualTimeSynchronizationExposureConfigurationConfigEventNotificationPostError
+		apiError.ErrorModel = v
+		return nil, apiError
+	}
 }
-
 
 /*
 IndividualTimeSynchronizationExposureConfigurationDocumentApiService Delete an Individual TimeSynchronization Exposure Configuration
@@ -455,25 +447,25 @@ IndividualTimeSynchronizationExposureConfigurationDocumentApiService Delete an I
 
 // DeleteIndividualTimeSynchronizationExposureConfigurationRequest
 type DeleteIndividualTimeSynchronizationExposureConfigurationRequest struct {
-    SubscriptionId *string
-    ConfigurationId *string
+	SubscriptionId  *string
+	ConfigurationId *string
 }
 
 func (r *DeleteIndividualTimeSynchronizationExposureConfigurationRequest) SetSubscriptionId(SubscriptionId string) {
-    r.SubscriptionId = &SubscriptionId
+	r.SubscriptionId = &SubscriptionId
 }
 func (r *DeleteIndividualTimeSynchronizationExposureConfigurationRequest) SetConfigurationId(ConfigurationId string) {
-    r.ConfigurationId = &ConfigurationId
+	r.ConfigurationId = &ConfigurationId
 }
 
 type DeleteIndividualTimeSynchronizationExposureConfigurationResponse struct {
-        }
+}
 
 type DeleteIndividualTimeSynchronizationExposureConfigurationError struct {
-    Location string
-Var3gppSbiTargetNfId string
-    ProblemDetails *models.ProblemDetails
-RedirectResponse *models.RedirectResponse
+	Location             string
+	Var3gppSbiTargetNfId string
+	ProblemDetails       *models.ProblemDetails
+	RedirectResponse     *models.RedirectResponse
 }
 
 func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) DeleteIndividualTimeSynchronizationExposureConfiguration(ctx context.Context, request *DeleteIndividualTimeSynchronizationExposureConfigurationRequest) (*DeleteIndividualTimeSynchronizationExposureConfigurationResponse, error) {
@@ -494,23 +486,19 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) D
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	
 
-    localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
-    localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{ "application/json", "application/problem+json" }
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-
-
-
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -523,7 +511,7 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) D
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-    if err != nil {
+	if err != nil {
 		return nil, err
 	}
 	err = localVarHTTPResponse.Body.Close()
@@ -531,104 +519,102 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) D
 		return nil, err
 	}
 
-    apiError := openapi.GenericOpenAPIError{
-        RawBody:     localVarBody,
-        ErrorStatus: localVarHTTPResponse.StatusCode,
-    }
+	apiError := openapi.GenericOpenAPIError{
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.StatusCode,
+	}
 
-    switch localVarHTTPResponse.StatusCode {
-        case 204:
-            return &localVarReturnValue, nil
-        case 307:
-            var v DeleteIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 308:
-            var v DeleteIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 400:
-            var v DeleteIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 401:
-            var v DeleteIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 403:
-            var v DeleteIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 404:
-            var v DeleteIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 429:
-            var v DeleteIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 500:
-            var v DeleteIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 502:
-            var v DeleteIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 503:
-            var v DeleteIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        default:
-            return nil, apiError
-    }
+	switch localVarHTTPResponse.StatusCode {
+	case 204:
+		return &localVarReturnValue, nil
+	case 307:
+		var v DeleteIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 308:
+		var v DeleteIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 400:
+		var v DeleteIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 401:
+		var v DeleteIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 403:
+		var v DeleteIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 404:
+		var v DeleteIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 429:
+		var v DeleteIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 500:
+		var v DeleteIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 502:
+		var v DeleteIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 503:
+		var v DeleteIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	default:
+		return nil, apiError
+	}
 }
-
-
 
 /*
 IndividualTimeSynchronizationExposureConfigurationDocumentApiService Reads an existing Individual Time Synchronization Exposure Configuration
@@ -641,26 +627,26 @@ IndividualTimeSynchronizationExposureConfigurationDocumentApiService Reads an ex
 
 // GetIndividualTimeSynchronizationExposureConfigurationRequest
 type GetIndividualTimeSynchronizationExposureConfigurationRequest struct {
-    SubscriptionId *string
-    ConfigurationId *string
+	SubscriptionId  *string
+	ConfigurationId *string
 }
 
 func (r *GetIndividualTimeSynchronizationExposureConfigurationRequest) SetSubscriptionId(SubscriptionId string) {
-    r.SubscriptionId = &SubscriptionId
+	r.SubscriptionId = &SubscriptionId
 }
 func (r *GetIndividualTimeSynchronizationExposureConfigurationRequest) SetConfigurationId(ConfigurationId string) {
-    r.ConfigurationId = &ConfigurationId
+	r.ConfigurationId = &ConfigurationId
 }
 
 type GetIndividualTimeSynchronizationExposureConfigurationResponse struct {
-        TimeSyncExposureConfig *models.TimeSyncExposureConfig
+	TimeSyncExposureConfig *models.TimeSyncExposureConfig
 }
 
 type GetIndividualTimeSynchronizationExposureConfigurationError struct {
-    Location string
-Var3gppSbiTargetNfId string
-    ProblemDetails *models.ProblemDetails
-RedirectResponse *models.RedirectResponse
+	Location             string
+	Var3gppSbiTargetNfId string
+	ProblemDetails       *models.ProblemDetails
+	RedirectResponse     *models.RedirectResponse
 }
 
 func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) GetIndividualTimeSynchronizationExposureConfiguration(ctx context.Context, request *GetIndividualTimeSynchronizationExposureConfigurationRequest) (*GetIndividualTimeSynchronizationExposureConfigurationResponse, error) {
@@ -681,23 +667,19 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) G
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	
 
-    localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
-    localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{ "application/json", "application/problem+json" }
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-
-
-
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -710,7 +692,7 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) G
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-    if err != nil {
+	if err != nil {
 		return nil, err
 	}
 	err = localVarHTTPResponse.Body.Close()
@@ -718,149 +700,147 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) G
 		return nil, err
 	}
 
-    apiError := openapi.GenericOpenAPIError{
-        RawBody:     localVarBody,
-        ErrorStatus: localVarHTTPResponse.StatusCode,
-    }
+	apiError := openapi.GenericOpenAPIError{
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.StatusCode,
+	}
 
-    switch localVarHTTPResponse.StatusCode {
-        case 200:
-            err = openapi.Deserialize(&localVarReturnValue.TimeSyncExposureConfig, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            return &localVarReturnValue, nil
-        case 307:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 308:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 400:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 401:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 403:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 404:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 406:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 429:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 500:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 502:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 503:
-            var v GetIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        default:
-            return nil, apiError
-    }
+	switch localVarHTTPResponse.StatusCode {
+	case 200:
+		err = openapi.Deserialize(&localVarReturnValue.TimeSyncExposureConfig, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		return &localVarReturnValue, nil
+	case 307:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 308:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 400:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 401:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 403:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 404:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 406:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 429:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 500:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 502:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 503:
+		var v GetIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	default:
+		return nil, apiError
+	}
 }
-
-
 
 /*
 IndividualTimeSynchronizationExposureConfigurationDocumentApiService Replace an individual Time Synchronization Exposure Configuration
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param SubscriptionId - String identifying an Individual Time Synchronization Exposure Subscription.
  * @param ConfigurationId - String identifying an Individual Time Synchronization Exposure Configuration.
- * @param TimeSyncExposureConfig - 
+ * @param TimeSyncExposureConfig -
 
 @return ReplaceIndividualTimeSynchronizationExposureConfigurationResponse
 */
 
 // ReplaceIndividualTimeSynchronizationExposureConfigurationRequest
 type ReplaceIndividualTimeSynchronizationExposureConfigurationRequest struct {
-    SubscriptionId *string
-    ConfigurationId *string
-    TimeSyncExposureConfig *models.TimeSyncExposureConfig
+	SubscriptionId         *string
+	ConfigurationId        *string
+	TimeSyncExposureConfig *models.TimeSyncExposureConfig
 }
 
 func (r *ReplaceIndividualTimeSynchronizationExposureConfigurationRequest) SetSubscriptionId(SubscriptionId string) {
-    r.SubscriptionId = &SubscriptionId
+	r.SubscriptionId = &SubscriptionId
 }
 func (r *ReplaceIndividualTimeSynchronizationExposureConfigurationRequest) SetConfigurationId(ConfigurationId string) {
-    r.ConfigurationId = &ConfigurationId
+	r.ConfigurationId = &ConfigurationId
 }
 func (r *ReplaceIndividualTimeSynchronizationExposureConfigurationRequest) SetTimeSyncExposureConfig(TimeSyncExposureConfig models.TimeSyncExposureConfig) {
-    r.TimeSyncExposureConfig = &TimeSyncExposureConfig
+	r.TimeSyncExposureConfig = &TimeSyncExposureConfig
 }
 
 type ReplaceIndividualTimeSynchronizationExposureConfigurationResponse struct {
-        TimeSyncExposureConfig *models.TimeSyncExposureConfig
+	TimeSyncExposureConfig *models.TimeSyncExposureConfig
 }
 
 type ReplaceIndividualTimeSynchronizationExposureConfigurationError struct {
-    Location string
-Var3gppSbiTargetNfId string
-    ProblemDetails *models.ProblemDetails
-RedirectResponse *models.RedirectResponse
+	Location             string
+	Var3gppSbiTargetNfId string
+	ProblemDetails       *models.ProblemDetails
+	RedirectResponse     *models.RedirectResponse
 }
 
 func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) ReplaceIndividualTimeSynchronizationExposureConfiguration(ctx context.Context, request *ReplaceIndividualTimeSynchronizationExposureConfigurationRequest) (*ReplaceIndividualTimeSynchronizationExposureConfigurationResponse, error) {
@@ -881,13 +861,13 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) R
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	
-    localVarHTTPContentTypes := []string{ "application/json" }
-    
-    localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{ "application/json", "application/problem+json" }
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -895,11 +875,8 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) R
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-
-
 	// body params
 	localVarPostBody = request.TimeSyncExposureConfig
-
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -912,7 +889,7 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) R
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-    if err != nil {
+	if err != nil {
 		return nil, err
 	}
 	err = localVarHTTPResponse.Body.Close()
@@ -920,131 +897,129 @@ func (a *IndividualTimeSynchronizationExposureConfigurationDocumentApiService) R
 		return nil, err
 	}
 
-    apiError := openapi.GenericOpenAPIError{
-        RawBody:     localVarBody,
-        ErrorStatus: localVarHTTPResponse.StatusCode,
-    }
+	apiError := openapi.GenericOpenAPIError{
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.StatusCode,
+	}
 
-    switch localVarHTTPResponse.StatusCode {
-        case 200:
-            err = openapi.Deserialize(&localVarReturnValue.TimeSyncExposureConfig, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            return &localVarReturnValue, nil
-        case 204:
-            return &localVarReturnValue, nil
-        case 307:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 308:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            v.Location = localVarHTTPResponse.Header.Get("Location")
-            v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 400:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 401:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 403:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 404:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 411:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 413:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 415:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 429:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 500:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 502:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        case 503:
-            var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
-            err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-            if err != nil {
-                return nil, err
-            }
-            apiError.ErrorModel = v
-            return nil, apiError
-        default:
-            return nil, apiError
-    }
+	switch localVarHTTPResponse.StatusCode {
+	case 200:
+		err = openapi.Deserialize(&localVarReturnValue.TimeSyncExposureConfig, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		return &localVarReturnValue, nil
+	case 204:
+		return &localVarReturnValue, nil
+	case 307:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 308:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		v.Location = localVarHTTPResponse.Header.Get("Location")
+		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 400:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 401:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 403:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 404:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 411:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 413:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 415:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 429:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 500:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 502:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	case 503:
+		var v ReplaceIndividualTimeSynchronizationExposureConfigurationError
+		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			return nil, err
+		}
+		apiError.ErrorModel = v
+		return nil, apiError
+	default:
+		return nil, apiError
+	}
 }
-
-
