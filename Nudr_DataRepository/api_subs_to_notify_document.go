@@ -20,8 +20,6 @@ import (
 	"strings"
 
 	openapi "github.com/HanHongChen/openapi-tsctsf"
-
-	openapi "github.com/HanHongChen/openapi-tsctsf"
 )
 
 // Linger please
