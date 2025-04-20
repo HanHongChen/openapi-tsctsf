@@ -1,9 +1,9 @@
 /*
  * Ntsctsf_QoSandTSCAssistance Service API
  *
- * TSCTSF QoS and TSC Assistance Service.   © 2023, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).   All rights reserved. 
+ * TSCTSF QoS and TSC Assistance Service.   © 2023, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).   All rights reserved.
  *
- * Source file: 3GPP TS 29.565 V18.3.0; 5G System; Time Sensitive Communication and Time Synchronization function  Services; Stage 3. 
+ * Source file: 3GPP TS 29.565 V18.3.0; 5G System; Time Sensitive Communication and Time Synchronization function  Services; Stage 3.
  * Url: https://www.3gpp.org/ftp/Specs/archive/29_series/29.565/
  *
  * API version: 1.1.0-alpha.4
@@ -12,19 +12,12 @@
 
 package models
 
-import (
-	
-)
-
-
-
 // Identifies the events the application subscribes to.
 type EventsSubscReqData struct {
-	Events []TscEvent `json:"events,omitempty" yaml:"events" bson:"events,omitempty"`
+	Events []AfEventSubscription `json:"events,omitempty" yaml:"events" bson:"events,omitempty"`
 	// String providing an URI formatted according to RFC 3986.
-	NotifUri string `json:"notifUri,omitempty" yaml:"notifUri" bson:"notifUri,omitempty"`
-	QosMon *QosMonitoringInformation `json:"qosMon,omitempty" yaml:"qosMon" bson:"qosMon,omitempty"`
-	UsgThres *UsageThreshold `json:"usgThres,omitempty" yaml:"usgThres" bson:"usgThres,omitempty"`
-	NotifCorreId string `json:"notifCorreId,omitempty" yaml:"notifCorreId" bson:"notifCorreId,omitempty"`
+	NotifUri     string                    `json:"notifUri,omitempty" yaml:"notifUri" bson:"notifUri,omitempty"`
+	QosMon       *QosMonitoringInformation `json:"qosMon,omitempty" yaml:"qosMon" bson:"qosMon,omitempty"`
+	UsgThres     *UsageThreshold           `json:"usgThres,omitempty" yaml:"usgThres" bson:"usgThres,omitempty"`
+	NotifCorreId string                    `json:"notifCorreId,omitempty" yaml:"notifCorreId" bson:"notifCorreId,omitempty"`
 }
-
