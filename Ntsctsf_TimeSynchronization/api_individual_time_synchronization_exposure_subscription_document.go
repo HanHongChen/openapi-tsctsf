@@ -13,8 +13,8 @@
 package TimeSynchronization
 
 import (
+	openapi "github.com/HanHongChen/openapi-tsctsf"
 	"github.com/HanHongChen/openapi-tsctsf/models"
-	"github.com/free5gc/openapi"
 
 	"context"
 	"io"
