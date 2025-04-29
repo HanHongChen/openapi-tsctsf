@@ -3,6 +3,7 @@ module github.com/HanHongChen/openapi-tsctsf
 go 1.21
 
 require (
+	github.com/antihax/optional v1.0.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang-jwt/jwt/v5 v5.2.2
 	github.com/h2non/gock v1.2.0
